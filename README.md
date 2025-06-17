@@ -1,4 +1,4 @@
-# 🏗 Scaffold-ETH 2
+# 🏗 Scaffold-ETH 2 with Hardhat + Monad Testnet Configuration 
 
 <h4 align="center">
   <a href="https://docs.scaffoldeth.io">Documentation</a> |
@@ -66,6 +66,40 @@ Run smart contract test with `yarn hardhat:test`
 - Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
 - Edit your deployment scripts in `packages/hardhat/deploy`
 
+
+## Contract Verification
+
+After deploying your smart contract to a testnet or mainnet, you can verify it on block explorers like Etherscan or Sourcify. This makes your contract source code publicly available and allows users to interact with it through the block explorer.
+
+### Sourcify Verification (Recommended)
+
+Scaffold-ETH 2 is configured to use Sourcify for contract verification by default. Sourcify is a decentralized verification platform that supports multiple block explorers.
+
+#### For Monad Testnet
+
+1. Deploy your contract to Monad testnet:
+```bash
+yarn deploy --network monadTestnet
+```
+
+2. Verify your contract using the hardhat-deploy plugin:
+```bash
+yarn hardhat-verify --network monadTestnet <CONTRACT_ADDRESS>
+```
+
+Replace `<CONTRACT_ADDRESS>` with the address of your deployed contract.
+
+#### Configuration
+
+The Sourcify configuration is already set up in `packages/hardhat/hardhat.config.ts`:
+
+```typescript
+sourcify: {
+  enabled: true,
+  apiUrl: "https://sourcify-api-monad.blockvision.org",
+  browserUrl: "https://testnet.monadexplorer.com",
+},
+```
 
 ## Documentation
 
