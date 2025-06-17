@@ -21,8 +21,6 @@ const deployerPrivateKey =
   process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 // If not set, it uses our block explorers default API keys.
 const etherscanApiKey = process.env.ETHERSCAN_MAINNET_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
-const etherscanOptimisticApiKey = process.env.ETHERSCAN_OPTIMISTIC_API_KEY || "RM62RDISS1RH448ZY379NX625ASG1N633R";
-const basescanApiKey = process.env.BASESCAN_API_KEY || "ZZZEIPMT1MNJ8526VV2Y744CA7TNZR64G6";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -55,106 +53,15 @@ const config: HardhatUserConfig = {
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
     },
-    mainnet: {
-      url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
+    monadTestnet: {
+      url: `https://testnet-rpc.monad.xyz/`,
       accounts: [deployerPrivateKey],
-    },
-    sepolia: {
-      url: `https://eth-sepolia.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    arbitrum: {
-      url: `https://arb-mainnet.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    arbitrumSepolia: {
-      url: `https://arb-sepolia.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    optimism: {
-      url: `https://opt-mainnet.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-      verify: {
-        etherscan: {
-          apiUrl: "https://api-optimistic.etherscan.io",
-          apiKey: etherscanOptimisticApiKey,
-        },
-      },
-    },
-    optimismSepolia: {
-      url: `https://opt-sepolia.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-      verify: {
-        etherscan: {
-          apiUrl: "https://api-sepolia-optimistic.etherscan.io",
-          apiKey: etherscanOptimisticApiKey,
-        },
-      },
-    },
-    polygon: {
-      url: `https://polygon-mainnet.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    polygonAmoy: {
-      url: `https://polygon-amoy.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    polygonZkEvm: {
-      url: `https://polygonzkevm-mainnet.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    polygonZkEvmCardona: {
-      url: `https://polygonzkevm-cardona.g.alchemy.com/v2/${providerApiKey}`,
-      accounts: [deployerPrivateKey],
-    },
-    gnosis: {
-      url: "https://rpc.gnosischain.com",
-      accounts: [deployerPrivateKey],
-    },
-    chiado: {
-      url: "https://rpc.chiadochain.net",
-      accounts: [deployerPrivateKey],
-    },
-    base: {
-      url: "https://mainnet.base.org",
-      accounts: [deployerPrivateKey],
-      verify: {
-        etherscan: {
-          apiUrl: "https://api.basescan.org",
-          apiKey: basescanApiKey,
-        },
-      },
-    },
-    baseSepolia: {
-      url: "https://sepolia.base.org",
-      accounts: [deployerPrivateKey],
-      verify: {
-        etherscan: {
-          apiUrl: "https://api-sepolia.basescan.org",
-          apiKey: basescanApiKey,
-        },
-      },
-    },
-    scrollSepolia: {
-      url: "https://sepolia-rpc.scroll.io",
-      accounts: [deployerPrivateKey],
-    },
-    scroll: {
-      url: "https://rpc.scroll.io",
-      accounts: [deployerPrivateKey],
-    },
-    celo: {
-      url: "https://forno.celo.org",
-      accounts: [deployerPrivateKey],
-    },
-    celoAlfajores: {
-      url: "https://alfajores-forno.celo-testnet.org",
-      accounts: [deployerPrivateKey],
+      chainId: 10143,
     },
   },
   // Configuration for harhdat-verify plugin
   etherscan: {
-    apiKey: `${etherscanApiKey}`,
+    enabled: false,
   },
   // Configuration for etherscan-verify from hardhat-deploy plugin
   verify: {
@@ -163,7 +70,9 @@ const config: HardhatUserConfig = {
     },
   },
   sourcify: {
-    enabled: false,
+    enabled: true,
+    apiUrl: "https://sourcify-api-monad.blockvision.org",
+    browserUrl: "https://testnet.monadexplorer.com",
   },
 };
 
