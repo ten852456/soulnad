@@ -1,0 +1,789 @@
+{
+  "address": "0x223A7cBfc7fAA7261E97EEEfFD7c8356A92B40be",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_issuerRegistry",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "EnforcedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ExpectedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "TemplateCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "TemplateDeactivated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "TemplateReactivated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "TemplateUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "createTemplate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "deactivateTemplate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        }
+      ],
+      "name": "getIssuerTemplates",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTemplate",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "templateId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "issuer",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "createdAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "active",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct SBTTemplate.Template",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalTemplates",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "isTemplateActive",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "issuerRegistry",
+      "outputs": [
+        {
+          "internalType": "contract IssuerRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "issuerTemplates",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        }
+      ],
+      "name": "reactivateTemplate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "templates",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "createdAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "updateTemplate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x21fd185f681e4d21a2743da5a68cdfd580de85d6c466e53abfce01a7750310d5",
+  "receipt": {
+    "to": null,
+    "from": "0xd82c3510567ce848DfcAD32b7e69877C0f66D9b1",
+    "contractAddress": "0x223A7cBfc7fAA7261E97EEEfFD7c8356A92B40be",
+    "transactionIndex": 5,
+    "gasUsed": "1269724",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000100000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000001000000000000000000000000000000000000020000000040000000000800000000000000000000000000000000400000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000040000000000000000000000000000000000000",
+    "blockHash": "0x90a999360d1799a0cd5a62a02d9d0dc1932a4920ca532a0afc7537b41b5981df",
+    "transactionHash": "0x21fd185f681e4d21a2743da5a68cdfd580de85d6c466e53abfce01a7750310d5",
+    "logs": [
+      {
+        "transactionIndex": 5,
+        "blockNumber": 38306741,
+        "transactionHash": "0x21fd185f681e4d21a2743da5a68cdfd580de85d6c466e53abfce01a7750310d5",
+        "address": "0x223A7cBfc7fAA7261E97EEEfFD7c8356A92B40be",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000d82c3510567ce848dfcad32b7e69877c0f66d9b1"
+        ],
+        "data": "0x",
+        "logIndex": 7,
+        "blockHash": "0x90a999360d1799a0cd5a62a02d9d0dc1932a4920ca532a0afc7537b41b5981df"
+      }
+    ],
+    "blockNumber": 38306741,
+    "cumulativeGasUsed": "2715386",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xFB1FF20107a62fE550d83ACa4E4Bf460dD77a944"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "bce8eeea9f20988b66af3cadc56b87f0",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_issuerRegistry\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"EnforcedPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExpectedPause\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"TemplateCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"}],\"name\":\"TemplateDeactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"}],\"name\":\"TemplateReactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"TemplateUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"createTemplate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"}],\"name\":\"deactivateTemplate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"getIssuerTemplates\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"}],\"name\":\"getTemplate\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"}],\"internalType\":\"struct SBTTemplate.Template\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTotalTemplates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"}],\"name\":\"isTemplateActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"issuerRegistry\",\"outputs\":[{\"internalType\":\"contract IssuerRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"issuerTemplates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"}],\"name\":\"reactivateTemplate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"templates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"updateTemplate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Contract for managing SBT templates that can be used to mint tokens\",\"errors\":{\"EnforcedPause()\":[{\"details\":\"The operation failed because the contract is paused.\"}],\"ExpectedPause()\":[{\"details\":\"The operation failed because the contract is not paused.\"}],\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}]},\"events\":{\"Paused(address)\":{\"details\":\"Emitted when the pause is triggered by `account`.\"},\"Unpaused(address)\":{\"details\":\"Emitted when the pause is lifted by `account`.\"}},\"kind\":\"dev\",\"methods\":{\"createTemplate(string,string)\":{\"details\":\"Create a new SBT template\",\"params\":{\"description\":\"The description for the SBT template\",\"name\":\"The name for the SBT template\"},\"returns\":{\"_0\":\"templateId The ID of the created template\"}},\"deactivateTemplate(uint256)\":{\"details\":\"Deactivate a template\",\"params\":{\"templateId\":\"The ID of the template to deactivate\"}},\"getIssuerTemplates(address)\":{\"details\":\"Get all template IDs for an issuer\",\"params\":{\"issuer\":\"The address of the issuer\"},\"returns\":{\"_0\":\"Array of template IDs\"}},\"getTemplate(uint256)\":{\"details\":\"Get template details\",\"params\":{\"templateId\":\"The ID of the template\"},\"returns\":{\"_0\":\"Template struct with all template data\"}},\"getTotalTemplates()\":{\"details\":\"Get total number of templates created\",\"returns\":{\"_0\":\"The total template count\"}},\"isTemplateActive(uint256)\":{\"details\":\"Check if a template is active and exists\",\"params\":{\"templateId\":\"The ID of the template\"},\"returns\":{\"_0\":\"Boolean indicating if template is active\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"paused()\":{\"details\":\"Returns true if the contract is paused, and false otherwise.\"},\"reactivateTemplate(uint256)\":{\"details\":\"Reactivate a template\",\"params\":{\"templateId\":\"The ID of the template to reactivate\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"updateTemplate(uint256,string,string)\":{\"details\":\"Update an existing template\",\"params\":{\"description\":\"The new description for the template\",\"name\":\"The new name for the template\",\"templateId\":\"The ID of the template to update\"}}},\"title\":\"SBTTemplate\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/SBTTemplate.sol\":\"SBTTemplate\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Pausable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/Pausable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which allows children to implement an emergency stop\\n * mechanism that can be triggered by an authorized account.\\n *\\n * This module is used through inheritance. It will make available the\\n * modifiers `whenNotPaused` and `whenPaused`, which can be applied to\\n * the functions of your contract. Note that they will not be pausable by\\n * simply including this module, only once the modifiers are put in place.\\n */\\nabstract contract Pausable is Context {\\n    bool private _paused;\\n\\n    /**\\n     * @dev Emitted when the pause is triggered by `account`.\\n     */\\n    event Paused(address account);\\n\\n    /**\\n     * @dev Emitted when the pause is lifted by `account`.\\n     */\\n    event Unpaused(address account);\\n\\n    /**\\n     * @dev The operation failed because the contract is paused.\\n     */\\n    error EnforcedPause();\\n\\n    /**\\n     * @dev The operation failed because the contract is not paused.\\n     */\\n    error ExpectedPause();\\n\\n    /**\\n     * @dev Initializes the contract in unpaused state.\\n     */\\n    constructor() {\\n        _paused = false;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is not paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    modifier whenNotPaused() {\\n        _requireNotPaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    modifier whenPaused() {\\n        _requirePaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the contract is paused, and false otherwise.\\n     */\\n    function paused() public view virtual returns (bool) {\\n        return _paused;\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is paused.\\n     */\\n    function _requireNotPaused() internal view virtual {\\n        if (paused()) {\\n            revert EnforcedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is not paused.\\n     */\\n    function _requirePaused() internal view virtual {\\n        if (!paused()) {\\n            revert ExpectedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Triggers stopped state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    function _pause() internal virtual whenNotPaused {\\n        _paused = true;\\n        emit Paused(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns to normal state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    function _unpause() internal virtual whenPaused {\\n        _paused = false;\\n        emit Unpaused(_msgSender());\\n    }\\n}\\n\",\"keccak256\":\"0xb2e5f50762c27fb4b123e3619c3c02bdcba5e515309382e5bfb6f7d6486510bd\",\"license\":\"MIT\"},\"contracts/IssuerRegistry.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/utils/Pausable.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title IssuerRegistry\\r\\n * @dev Contract to manage authorized SBT issuers\\r\\n * @author SBT System POC\\r\\n */\\r\\ncontract IssuerRegistry is Ownable, Pausable {\\r\\n    struct IssuerInfo {\\r\\n        string name;\\r\\n        string organization;\\r\\n        bool authorized;\\r\\n        uint256 addedAt;\\r\\n    }\\r\\n\\r\\n    // Mapping from issuer address to issuer info\\r\\n    mapping(address => IssuerInfo) private issuers;\\r\\n\\r\\n    // Array to track all issuer addresses for enumeration\\r\\n    address[] public issuerAddresses;\\r\\n\\r\\n    // Mapping to track if address is in the array (for gas optimization)\\r\\n    mapping(address => bool) private isInArray;\\r\\n\\r\\n    // Events\\r\\n    event IssuerAdded(\\r\\n        address indexed issuer,\\r\\n        string name,\\r\\n        string organization,\\r\\n        uint256 timestamp\\r\\n    );\\r\\n\\r\\n    event IssuerRemoved(\\r\\n        address indexed issuer,\\r\\n        uint256 timestamp\\r\\n    );\\r\\n\\r\\n    event IssuerUpdated(\\r\\n        address indexed issuer,\\r\\n        string name,\\r\\n        string organization,\\r\\n        uint256 timestamp\\r\\n    );\\r\\n\\r\\n    constructor(address _owner) Ownable(_owner) {\\r\\n        // Add the owner as the first authorized issuer\\r\\n        _addIssuerInternal(_owner, \\\"System Admin\\\", \\\"SBT System\\\");\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Add a new authorized issuer\\r\\n     * @param issuer Address of the issuer\\r\\n     * @param name Name of the issuer\\r\\n     * @param organization Organization name\\r\\n     */\\r\\n    function addIssuer(\\r\\n        address issuer,\\r\\n        string memory name,\\r\\n        string memory organization\\r\\n    ) external onlyOwner whenNotPaused {\\r\\n        require(issuer != address(0), \\\"IssuerRegistry: Invalid issuer address\\\");\\r\\n        require(bytes(name).length > 0, \\\"IssuerRegistry: Name cannot be empty\\\");\\r\\n        require(!issuers[issuer].authorized, \\\"IssuerRegistry: Issuer already exists\\\");\\r\\n\\r\\n        _addIssuerInternal(issuer, name, organization);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Internal function to add issuer\\r\\n     */\\r\\n    function _addIssuerInternal(\\r\\n        address issuer,\\r\\n        string memory name,\\r\\n        string memory organization\\r\\n    ) internal {\\r\\n        issuers[issuer] = IssuerInfo({\\r\\n            name: name,\\r\\n            organization: organization,\\r\\n            authorized: true,\\r\\n            addedAt: block.timestamp\\r\\n        });\\r\\n\\r\\n        if (!isInArray[issuer]) {\\r\\n            issuerAddresses.push(issuer);\\r\\n            isInArray[issuer] = true;\\r\\n        }\\r\\n\\r\\n        emit IssuerAdded(issuer, name, organization, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Remove an authorized issuer\\r\\n     * @param issuer Address of the issuer to remove\\r\\n     */\\r\\n    function removeIssuer(address issuer) external onlyOwner whenNotPaused {\\r\\n        require(issuer != address(0), \\\"IssuerRegistry: Invalid issuer address\\\");\\r\\n        require(issuers[issuer].authorized, \\\"IssuerRegistry: Issuer not found\\\");\\r\\n        require(issuer != owner(), \\\"IssuerRegistry: Cannot remove owner\\\");\\r\\n\\r\\n        issuers[issuer].authorized = false;\\r\\n\\r\\n        emit IssuerRemoved(issuer, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Update issuer information\\r\\n     * @param issuer Address of the issuer\\r\\n     * @param name New name\\r\\n     * @param organization New organization\\r\\n     */\\r\\n    function updateIssuer(\\r\\n        address issuer,\\r\\n        string memory name,\\r\\n        string memory organization\\r\\n    ) external onlyOwner whenNotPaused {\\r\\n        require(issuer != address(0), \\\"IssuerRegistry: Invalid issuer address\\\");\\r\\n        require(issuers[issuer].authorized, \\\"IssuerRegistry: Issuer not found\\\");\\r\\n        require(bytes(name).length > 0, \\\"IssuerRegistry: Name cannot be empty\\\");\\r\\n\\r\\n        issuers[issuer].name = name;\\r\\n        issuers[issuer].organization = organization;\\r\\n\\r\\n        emit IssuerUpdated(issuer, name, organization, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Check if an address is an authorized issuer\\r\\n     * @param issuer Address to check\\r\\n     * @return bool True if authorized, false otherwise\\r\\n     */\\r\\n    function isAuthorizedIssuer(address issuer) external view returns (bool) {\\r\\n        return issuers[issuer].authorized;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get issuer information\\r\\n     * @param issuer Address of the issuer\\r\\n     * @return IssuerInfo struct containing issuer details\\r\\n     */\\r\\n    function getIssuerInfo(address issuer) external view returns (IssuerInfo memory) {\\r\\n        return issuers[issuer];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get all authorized issuer addresses\\r\\n     * @return address[] Array of all issuer addresses\\r\\n     */\\r\\n    function getAllIssuers() external view returns (address[] memory) {\\r\\n        uint256 authorizedCount = 0;\\r\\n\\r\\n        // Count authorized issuers\\r\\n        for (uint256 i = 0; i < issuerAddresses.length; i++) {\\r\\n            if (issuers[issuerAddresses[i]].authorized) {\\r\\n                authorizedCount++;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        // Create array of authorized issuers\\r\\n        address[] memory authorizedIssuers = new address[](authorizedCount);\\r\\n        uint256 index = 0;\\r\\n\\r\\n        for (uint256 i = 0; i < issuerAddresses.length; i++) {\\r\\n            if (issuers[issuerAddresses[i]].authorized) {\\r\\n                authorizedIssuers[index] = issuerAddresses[i];\\r\\n                index++;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        return authorizedIssuers;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get total count of authorized issuers\\r\\n     * @return uint256 Count of authorized issuers\\r\\n     */\\r\\n    function getAuthorizedIssuerCount() external view returns (uint256) {\\r\\n        uint256 count = 0;\\r\\n        for (uint256 i = 0; i < issuerAddresses.length; i++) {\\r\\n            if (issuers[issuerAddresses[i]].authorized) {\\r\\n                count++;\\r\\n            }\\r\\n        }\\r\\n        return count;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Pause the contract\\r\\n     */\\r\\n    function pause() external onlyOwner {\\r\\n        _pause();\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Unpause the contract\\r\\n     */\\r\\n    function unpause() external onlyOwner {\\r\\n        _unpause();\\r\\n    }\\r\\n}\",\"keccak256\":\"0x2ff2ba6a3a1cc897ce7bc3452860e0ad8b4f75829100e34d867b694dacdc976b\",\"license\":\"MIT\"},\"contracts/SBTTemplate.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.19;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/utils/Pausable.sol\\\";\\r\\nimport \\\"./IssuerRegistry.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title SBTTemplate\\r\\n * @dev Contract for managing SBT templates that can be used to mint tokens\\r\\n */\\r\\ncontract SBTTemplate is Ownable, Pausable {\\r\\n    struct Template {\\r\\n        uint256 templateId;\\r\\n        string name;\\r\\n        string description;\\r\\n        address issuer;\\r\\n        uint256 createdAt;\\r\\n        bool active;\\r\\n    }\\r\\n\\r\\n    // State variables\\r\\n    uint256 private _templateIdCounter;\\r\\n    mapping(uint256 => Template) public templates;\\r\\n    mapping(address => uint256[]) public issuerTemplates;\\r\\n\\r\\n    IssuerRegistry public immutable issuerRegistry;\\r\\n\\r\\n    // Events\\r\\n    event TemplateCreated(\\r\\n        uint256 indexed templateId,\\r\\n        address indexed issuer,\\r\\n        string name,\\r\\n        string description\\r\\n    );\\r\\n\\r\\n    event TemplateUpdated(\\r\\n        uint256 indexed templateId,\\r\\n        string name,\\r\\n        string description\\r\\n    );\\r\\n\\r\\n    event TemplateDeactivated(uint256 indexed templateId);\\r\\n    event TemplateReactivated(uint256 indexed templateId);\\r\\n\\r\\n    // Modifiers\\r\\n    modifier onlyAuthorizedIssuer() {\\r\\n        require(\\r\\n            issuerRegistry.isAuthorizedIssuer(msg.sender),\\r\\n            \\\"SBTTemplate: caller is not an authorized issuer\\\"\\r\\n        );\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier templateExists(uint256 templateId) {\\r\\n        require(templateId <= _templateIdCounter && templateId > 0, \\\"SBTTemplate: template does not exist\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier onlyTemplateIssuer(uint256 templateId) {\\r\\n        require(templates[templateId].issuer == msg.sender, \\\"SBTTemplate: not template issuer\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    constructor(address _issuerRegistry) Ownable(msg.sender) {\\r\\n        require(_issuerRegistry != address(0), \\\"SBTTemplate: invalid issuer registry address\\\");\\r\\n        issuerRegistry = IssuerRegistry(_issuerRegistry);\\r\\n        _templateIdCounter = 0;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Create a new SBT template\\r\\n     * @param name The name for the SBT template\\r\\n     * @param description The description for the SBT template\\r\\n     * @return templateId The ID of the created template\\r\\n     */\\r\\n    function createTemplate(\\r\\n        string memory name,\\r\\n        string memory description\\r\\n    ) external onlyAuthorizedIssuer whenNotPaused returns (uint256) {\\r\\n        require(bytes(name).length > 0, \\\"SBTTemplate: name cannot be empty\\\");\\r\\n        require(bytes(description).length > 0, \\\"SBTTemplate: description cannot be empty\\\");\\r\\n\\r\\n        _templateIdCounter++;\\r\\n        uint256 templateId = _templateIdCounter;\\r\\n\\r\\n        templates[templateId] = Template({\\r\\n            templateId: templateId,\\r\\n            name: name,\\r\\n            description: description,\\r\\n            issuer: msg.sender,\\r\\n            createdAt: block.timestamp,\\r\\n            active: true\\r\\n        });\\r\\n\\r\\n        issuerTemplates[msg.sender].push(templateId);\\r\\n\\r\\n        emit TemplateCreated(templateId, msg.sender, name, description);\\r\\n\\r\\n        return templateId;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Update an existing template\\r\\n     * @param templateId The ID of the template to update\\r\\n     * @param name The new name for the template\\r\\n     * @param description The new description for the template\\r\\n     */\\r\\n    function updateTemplate(\\r\\n        uint256 templateId,\\r\\n        string memory name,\\r\\n        string memory description\\r\\n    ) external templateExists(templateId) onlyTemplateIssuer(templateId) whenNotPaused {\\r\\n        require(bytes(name).length > 0, \\\"SBTTemplate: name cannot be empty\\\");\\r\\n        require(bytes(description).length > 0, \\\"SBTTemplate: description cannot be empty\\\");\\r\\n        require(templates[templateId].active, \\\"SBTTemplate: template is not active\\\");\\r\\n\\r\\n        templates[templateId].name = name;\\r\\n        templates[templateId].description = description;\\r\\n\\r\\n        emit TemplateUpdated(templateId, name, description);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Deactivate a template\\r\\n     * @param templateId The ID of the template to deactivate\\r\\n     */\\r\\n    function deactivateTemplate(uint256 templateId)\\r\\n        external\\r\\n        templateExists(templateId)\\r\\n        onlyTemplateIssuer(templateId)\\r\\n        whenNotPaused\\r\\n    {\\r\\n        require(templates[templateId].active, \\\"SBTTemplate: template already inactive\\\");\\r\\n\\r\\n        templates[templateId].active = false;\\r\\n        emit TemplateDeactivated(templateId);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Reactivate a template\\r\\n     * @param templateId The ID of the template to reactivate\\r\\n     */\\r\\n    function reactivateTemplate(uint256 templateId)\\r\\n        external\\r\\n        templateExists(templateId)\\r\\n        onlyTemplateIssuer(templateId)\\r\\n        whenNotPaused\\r\\n    {\\r\\n        require(!templates[templateId].active, \\\"SBTTemplate: template already active\\\");\\r\\n\\r\\n        templates[templateId].active = true;\\r\\n        emit TemplateReactivated(templateId);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get template details\\r\\n     * @param templateId The ID of the template\\r\\n     * @return Template struct with all template data\\r\\n     */\\r\\n    function getTemplate(uint256 templateId)\\r\\n        external\\r\\n        view\\r\\n        templateExists(templateId)\\r\\n        returns (Template memory)\\r\\n    {\\r\\n        return templates[templateId];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get all template IDs for an issuer\\r\\n     * @param issuer The address of the issuer\\r\\n     * @return Array of template IDs\\r\\n     */\\r\\n    function getIssuerTemplates(address issuer) external view returns (uint256[] memory) {\\r\\n        return issuerTemplates[issuer];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get total number of templates created\\r\\n     * @return The total template count\\r\\n     */\\r\\n    function getTotalTemplates() external view returns (uint256) {\\r\\n        return _templateIdCounter;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Check if a template is active and exists\\r\\n     * @param templateId The ID of the template\\r\\n     * @return Boolean indicating if template is active\\r\\n     */\\r\\n    function isTemplateActive(uint256 templateId) external view returns (bool) {\\r\\n        if (templateId > _templateIdCounter || templateId == 0) {\\r\\n            return false;\\r\\n        }\\r\\n        return templates[templateId].active;\\r\\n    }\\r\\n\\r\\n    // Admin functions\\r\\n    function pause() external onlyOwner {\\r\\n        _pause();\\r\\n    }\\r\\n\\r\\n    function unpause() external onlyOwner {\\r\\n        _unpause();\\r\\n    }\\r\\n}\",\"keccak256\":\"0x7677115b228ccfea1bf5bff2849b682bfd7f1d6c4f375a16b82d5cffae4f3569\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a060405234801561001057600080fd5b50604051620016cb380380620016cb83398101604081905261003191610140565b338061005857604051631e4fbdf760e01b8152600060048201526024015b60405180910390fd5b610061816100f0565b506000805460ff60a01b191690556001600160a01b0381166100da5760405162461bcd60e51b815260206004820152602c60248201527f53425454656d706c6174653a20696e76616c696420697373756572207265676960448201526b73747279206164647265737360a01b606482015260840161004f565b6001600160a01b03166080526000600155610170565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561015257600080fd5b81516001600160a01b038116811461016957600080fd5b9392505050565b60805161153862000193600039600081816101eb01526105f001526115386000f3fe608060405234801561001057600080fd5b506004361061010b5760003560e01c80637a2e9800116100a25780638da5cb5b116100715780638da5cb5b14610225578063bc52565214610236578063c0c06f1e1461025b578063e0a0d9331461027b578063f2fde38b1461028e57600080fd5b80637a2e9800146101b85780638456cb59146101cb5780638692724d146101d35780638bfc1851146101e657600080fd5b80636aeae837116100de5780636aeae837146101745780636f48a8b314610195578063715018a6146101a857806378012ef7146101b057600080fd5b80631d1a689e1461011057806331543cf4146101255780633f4ba83a1461014e5780635c975abb14610156575b600080fd5b61012361011e366004610efa565b6102a1565b005b610138610133366004610efa565b6103d1565b6040516101459190610f59565b60405180910390f35b6101236105c6565b600054600160a01b900460ff165b6040519015158152602001610145565b610187610182366004611074565b6105d8565b604051908152602001610145565b6101236101a33660046110d8565b610846565b6101236109e1565b600154610187565b6101236101c6366004610efa565b6109f3565b610123610b1b565b6101876101e1366004611161565b610b2b565b61020d7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b039091168152602001610145565b6000546001600160a01b031661020d565b610249610244366004610efa565b610b5c565b6040516101459695949392919061118b565b61026e6102693660046111e0565b610cb0565b6040516101459190611202565b610164610289366004610efa565b610d1c565b61012361029c3660046111e0565b610d52565b8060015481111580156102b45750600081115b6102d95760405162461bcd60e51b81526004016102d090611246565b60405180910390fd5b60008281526002602052604090206003015482906001600160a01b031633146103145760405162461bcd60e51b81526004016102d09061128a565b61031c610d90565b60008381526002602052604090206005015460ff1661038c5760405162461bcd60e51b815260206004820152602660248201527f53425454656d706c6174653a2074656d706c61746520616c726561647920696e60448201526561637469766560d01b60648201526084016102d0565b600083815260026020526040808220600501805460ff191690555184917f39985767bcf8b3750746daea802fa7221d3057b28d5be7162a167c5e69a065f291a2505050565b6104156040518060c0016040528060008152602001606081526020016060815260200160006001600160a01b03168152602001600081526020016000151581525090565b8160015481111580156104285750600081115b6104445760405162461bcd60e51b81526004016102d090611246565b600260008481526020019081526020016000206040518060c00160405290816000820154815260200160018201805461047c906112bf565b80601f01602080910402602001604051908101604052809291908181526020018280546104a8906112bf565b80156104f55780601f106104ca576101008083540402835291602001916104f5565b820191906000526020600020905b8154815290600101906020018083116104d857829003601f168201915b5050505050815260200160028201805461050e906112bf565b80601f016020809104026020016040519081016040528092919081815260200182805461053a906112bf565b80156105875780601f1061055c57610100808354040283529160200191610587565b820191906000526020600020905b81548152906001019060200180831161056a57829003601f168201915b505050918352505060038201546001600160a01b031660208201526004820154604082015260059091015460ff16151560609091015291505b50919050565b6105ce610dbb565b6105d6610de8565b565b6040516318dd0cb360e11b81523360048201526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906331ba196690602401602060405180830381865afa15801561063f573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061066391906112f3565b6106c75760405162461bcd60e51b815260206004820152602f60248201527f53425454656d706c6174653a2063616c6c6572206973206e6f7420616e20617560448201526e3a3437b934bd32b21034b9b9bab2b960891b60648201526084016102d0565b6106cf610d90565b60008351116106f05760405162461bcd60e51b81526004016102d090611315565b60008251116107115760405162461bcd60e51b81526004016102d090611356565b600180549060006107218361139e565b9091555050600180546040805160c081018252828152602080820188815282840188905233606084015242608084015260a0830186905260008581526002909252929020815181559151929390929082019061077d9082611414565b50604082015160028201906107929082611414565b506060820151600382810180546001600160a01b0319166001600160a01b03909316929092179091556080830151600483015560a0909201516005909101805460ff191691151591909117905533600081815260209283526040808220805460018101825590835293909120909201839055905182907f91ea062d705395c5c79edc1b593269590ff99e8e5c9c8f9db73e0e572846ed389061083790889088906114d4565b60405180910390a39392505050565b8260015481111580156108595750600081115b6108755760405162461bcd60e51b81526004016102d090611246565b60008481526002602052604090206003015484906001600160a01b031633146108b05760405162461bcd60e51b81526004016102d09061128a565b6108b8610d90565b60008451116108d95760405162461bcd60e51b81526004016102d090611315565b60008351116108fa5760405162461bcd60e51b81526004016102d090611356565b60008581526002602052604090206005015460ff166109675760405162461bcd60e51b815260206004820152602360248201527f53425454656d706c6174653a2074656d706c617465206973206e6f742061637460448201526269766560e81b60648201526084016102d0565b60008581526002602052604090206001016109828582611414565b5060008581526002602081905260409091200161099f8482611414565b50847fa3e1c86fc873f506ea6bcbde077ad8412d907ff106cb1ae7011c51a8f239eaa485856040516109d29291906114d4565b60405180910390a25050505050565b6109e9610dbb565b6105d66000610e3d565b806001548111158015610a065750600081115b610a225760405162461bcd60e51b81526004016102d090611246565b60008281526002602052604090206003015482906001600160a01b03163314610a5d5760405162461bcd60e51b81526004016102d09061128a565b610a65610d90565b60008381526002602052604090206005015460ff1615610ad35760405162461bcd60e51b8152602060048201526024808201527f53425454656d706c6174653a2074656d706c61746520616c72656164792061636044820152637469766560e01b60648201526084016102d0565b600083815260026020526040808220600501805460ff191660011790555184917f900441413609449e0c70f18376faae9e49903e3cc8d1afb91aa0264cd6876f2391a2505050565b610b23610dbb565b6105d6610e8d565b60036020528160005260406000208181548110610b4757600080fd5b90600052602060002001600091509150505481565b60026020526000908152604090208054600182018054919291610b7e906112bf565b80601f0160208091040260200160405190810160405280929190818152602001828054610baa906112bf565b8015610bf75780601f10610bcc57610100808354040283529160200191610bf7565b820191906000526020600020905b815481529060010190602001808311610bda57829003601f168201915b505050505090806002018054610c0c906112bf565b80601f0160208091040260200160405190810160405280929190818152602001828054610c38906112bf565b8015610c855780601f10610c5a57610100808354040283529160200191610c85565b820191906000526020600020905b815481529060010190602001808311610c6857829003601f168201915b505050506003830154600484015460059094015492936001600160a01b039091169290915060ff1686565b6001600160a01b038116600090815260036020908152604091829020805483518184028101840190945280845260609392830182828015610d1057602002820191906000526020600020905b815481526020019060010190808311610cfc575b50505050509050919050565b6000600154821180610d2c575081155b15610d3957506000919050565b5060009081526002602052604090206005015460ff1690565b610d5a610dbb565b6001600160a01b038116610d8457604051631e4fbdf760e01b8152600060048201526024016102d0565b610d8d81610e3d565b50565b600054600160a01b900460ff16156105d65760405163d93c066560e01b815260040160405180910390fd5b6000546001600160a01b031633146105d65760405163118cdaa760e01b81523360048201526024016102d0565b610df0610ed0565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610e95610d90565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610e203390565b600054600160a01b900460ff166105d657604051638dfc202b60e01b815260040160405180910390fd5b600060208284031215610f0c57600080fd5b5035919050565b6000815180845260005b81811015610f3957602081850181015186830182015201610f1d565b506000602082860101526020601f19601f83011685010191505092915050565b60208152815160208201526000602083015160c06040840152610f7f60e0840182610f13565b90506040840151601f19848303016060850152610f9c8282610f13565b91505060018060a01b036060850151166080840152608084015160a084015260a0840151151560c08401528091505092915050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112610ff857600080fd5b813567ffffffffffffffff8082111561101357611013610fd1565b604051601f8301601f19908116603f0116810190828211818310171561103b5761103b610fd1565b8160405283815286602085880101111561105457600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000806040838503121561108757600080fd5b823567ffffffffffffffff8082111561109f57600080fd5b6110ab86838701610fe7565b935060208501359150808211156110c157600080fd5b506110ce85828601610fe7565b9150509250929050565b6000806000606084860312156110ed57600080fd5b83359250602084013567ffffffffffffffff8082111561110c57600080fd5b61111887838801610fe7565b9350604086013591508082111561112e57600080fd5b5061113b86828701610fe7565b9150509250925092565b80356001600160a01b038116811461115c57600080fd5b919050565b6000806040838503121561117457600080fd5b61117d83611145565b946020939093013593505050565b86815260c0602082015260006111a460c0830188610f13565b82810360408401526111b68188610f13565b6001600160a01b0396909616606084015250506080810192909252151560a0909101529392505050565b6000602082840312156111f257600080fd5b6111fb82611145565b9392505050565b6020808252825182820181905260009190848201906040850190845b8181101561123a5783518352928401929184019160010161121e565b50909695505050505050565b60208082526024908201527f53425454656d706c6174653a2074656d706c61746520646f6573206e6f7420656040820152631e1a5cdd60e21b606082015260800190565b6020808252818101527f53425454656d706c6174653a206e6f742074656d706c61746520697373756572604082015260600190565b600181811c908216806112d357607f821691505b6020821081036105c057634e487b7160e01b600052602260045260246000fd5b60006020828403121561130557600080fd5b815180151581146111fb57600080fd5b60208082526021908201527f53425454656d706c6174653a206e616d652063616e6e6f7420626520656d70746040820152607960f81b606082015260800190565b60208082526028908201527f53425454656d706c6174653a206465736372697074696f6e2063616e6e6f7420604082015267626520656d70747960c01b606082015260800190565b6000600182016113be57634e487b7160e01b600052601160045260246000fd5b5060010190565b601f82111561140f57600081815260208120601f850160051c810160208610156113ec5750805b601f850160051c820191505b8181101561140b578281556001016113f8565b5050505b505050565b815167ffffffffffffffff81111561142e5761142e610fd1565b6114428161143c84546112bf565b846113c5565b602080601f831160018114611477576000841561145f5750858301515b600019600386901b1c1916600185901b17855561140b565b600085815260208120601f198616915b828110156114a657888601518255948401946001909101908401611487565b50858210156114c45787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b6040815260006114e76040830185610f13565b82810360208401526114f98185610f13565b9594505050505056fea2646970667358221220b5aa9c2289f07d740a8b4084ea86ab48e4be0c2fd955196cbaecc825e6415cb364736f6c63430008140033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061010b5760003560e01c80637a2e9800116100a25780638da5cb5b116100715780638da5cb5b14610225578063bc52565214610236578063c0c06f1e1461025b578063e0a0d9331461027b578063f2fde38b1461028e57600080fd5b80637a2e9800146101b85780638456cb59146101cb5780638692724d146101d35780638bfc1851146101e657600080fd5b80636aeae837116100de5780636aeae837146101745780636f48a8b314610195578063715018a6146101a857806378012ef7146101b057600080fd5b80631d1a689e1461011057806331543cf4146101255780633f4ba83a1461014e5780635c975abb14610156575b600080fd5b61012361011e366004610efa565b6102a1565b005b610138610133366004610efa565b6103d1565b6040516101459190610f59565b60405180910390f35b6101236105c6565b600054600160a01b900460ff165b6040519015158152602001610145565b610187610182366004611074565b6105d8565b604051908152602001610145565b6101236101a33660046110d8565b610846565b6101236109e1565b600154610187565b6101236101c6366004610efa565b6109f3565b610123610b1b565b6101876101e1366004611161565b610b2b565b61020d7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b039091168152602001610145565b6000546001600160a01b031661020d565b610249610244366004610efa565b610b5c565b6040516101459695949392919061118b565b61026e6102693660046111e0565b610cb0565b6040516101459190611202565b610164610289366004610efa565b610d1c565b61012361029c3660046111e0565b610d52565b8060015481111580156102b45750600081115b6102d95760405162461bcd60e51b81526004016102d090611246565b60405180910390fd5b60008281526002602052604090206003015482906001600160a01b031633146103145760405162461bcd60e51b81526004016102d09061128a565b61031c610d90565b60008381526002602052604090206005015460ff1661038c5760405162461bcd60e51b815260206004820152602660248201527f53425454656d706c6174653a2074656d706c61746520616c726561647920696e60448201526561637469766560d01b60648201526084016102d0565b600083815260026020526040808220600501805460ff191690555184917f39985767bcf8b3750746daea802fa7221d3057b28d5be7162a167c5e69a065f291a2505050565b6104156040518060c0016040528060008152602001606081526020016060815260200160006001600160a01b03168152602001600081526020016000151581525090565b8160015481111580156104285750600081115b6104445760405162461bcd60e51b81526004016102d090611246565b600260008481526020019081526020016000206040518060c00160405290816000820154815260200160018201805461047c906112bf565b80601f01602080910402602001604051908101604052809291908181526020018280546104a8906112bf565b80156104f55780601f106104ca576101008083540402835291602001916104f5565b820191906000526020600020905b8154815290600101906020018083116104d857829003601f168201915b5050505050815260200160028201805461050e906112bf565b80601f016020809104026020016040519081016040528092919081815260200182805461053a906112bf565b80156105875780601f1061055c57610100808354040283529160200191610587565b820191906000526020600020905b81548152906001019060200180831161056a57829003601f168201915b505050918352505060038201546001600160a01b031660208201526004820154604082015260059091015460ff16151560609091015291505b50919050565b6105ce610dbb565b6105d6610de8565b565b6040516318dd0cb360e11b81523360048201526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906331ba196690602401602060405180830381865afa15801561063f573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061066391906112f3565b6106c75760405162461bcd60e51b815260206004820152602f60248201527f53425454656d706c6174653a2063616c6c6572206973206e6f7420616e20617560448201526e3a3437b934bd32b21034b9b9bab2b960891b60648201526084016102d0565b6106cf610d90565b60008351116106f05760405162461bcd60e51b81526004016102d090611315565b60008251116107115760405162461bcd60e51b81526004016102d090611356565b600180549060006107218361139e565b9091555050600180546040805160c081018252828152602080820188815282840188905233606084015242608084015260a0830186905260008581526002909252929020815181559151929390929082019061077d9082611414565b50604082015160028201906107929082611414565b506060820151600382810180546001600160a01b0319166001600160a01b03909316929092179091556080830151600483015560a0909201516005909101805460ff191691151591909117905533600081815260209283526040808220805460018101825590835293909120909201839055905182907f91ea062d705395c5c79edc1b593269590ff99e8e5c9c8f9db73e0e572846ed389061083790889088906114d4565b60405180910390a39392505050565b8260015481111580156108595750600081115b6108755760405162461bcd60e51b81526004016102d090611246565b60008481526002602052604090206003015484906001600160a01b031633146108b05760405162461bcd60e51b81526004016102d09061128a565b6108b8610d90565b60008451116108d95760405162461bcd60e51b81526004016102d090611315565b60008351116108fa5760405162461bcd60e51b81526004016102d090611356565b60008581526002602052604090206005015460ff166109675760405162461bcd60e51b815260206004820152602360248201527f53425454656d706c6174653a2074656d706c617465206973206e6f742061637460448201526269766560e81b60648201526084016102d0565b60008581526002602052604090206001016109828582611414565b5060008581526002602081905260409091200161099f8482611414565b50847fa3e1c86fc873f506ea6bcbde077ad8412d907ff106cb1ae7011c51a8f239eaa485856040516109d29291906114d4565b60405180910390a25050505050565b6109e9610dbb565b6105d66000610e3d565b806001548111158015610a065750600081115b610a225760405162461bcd60e51b81526004016102d090611246565b60008281526002602052604090206003015482906001600160a01b03163314610a5d5760405162461bcd60e51b81526004016102d09061128a565b610a65610d90565b60008381526002602052604090206005015460ff1615610ad35760405162461bcd60e51b8152602060048201526024808201527f53425454656d706c6174653a2074656d706c61746520616c72656164792061636044820152637469766560e01b60648201526084016102d0565b600083815260026020526040808220600501805460ff191660011790555184917f900441413609449e0c70f18376faae9e49903e3cc8d1afb91aa0264cd6876f2391a2505050565b610b23610dbb565b6105d6610e8d565b60036020528160005260406000208181548110610b4757600080fd5b90600052602060002001600091509150505481565b60026020526000908152604090208054600182018054919291610b7e906112bf565b80601f0160208091040260200160405190810160405280929190818152602001828054610baa906112bf565b8015610bf75780601f10610bcc57610100808354040283529160200191610bf7565b820191906000526020600020905b815481529060010190602001808311610bda57829003601f168201915b505050505090806002018054610c0c906112bf565b80601f0160208091040260200160405190810160405280929190818152602001828054610c38906112bf565b8015610c855780601f10610c5a57610100808354040283529160200191610c85565b820191906000526020600020905b815481529060010190602001808311610c6857829003601f168201915b505050506003830154600484015460059094015492936001600160a01b039091169290915060ff1686565b6001600160a01b038116600090815260036020908152604091829020805483518184028101840190945280845260609392830182828015610d1057602002820191906000526020600020905b815481526020019060010190808311610cfc575b50505050509050919050565b6000600154821180610d2c575081155b15610d3957506000919050565b5060009081526002602052604090206005015460ff1690565b610d5a610dbb565b6001600160a01b038116610d8457604051631e4fbdf760e01b8152600060048201526024016102d0565b610d8d81610e3d565b50565b600054600160a01b900460ff16156105d65760405163d93c066560e01b815260040160405180910390fd5b6000546001600160a01b031633146105d65760405163118cdaa760e01b81523360048201526024016102d0565b610df0610ed0565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b610e95610d90565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258610e203390565b600054600160a01b900460ff166105d657604051638dfc202b60e01b815260040160405180910390fd5b600060208284031215610f0c57600080fd5b5035919050565b6000815180845260005b81811015610f3957602081850181015186830182015201610f1d565b506000602082860101526020601f19601f83011685010191505092915050565b60208152815160208201526000602083015160c06040840152610f7f60e0840182610f13565b90506040840151601f19848303016060850152610f9c8282610f13565b91505060018060a01b036060850151166080840152608084015160a084015260a0840151151560c08401528091505092915050565b634e487b7160e01b600052604160045260246000fd5b600082601f830112610ff857600080fd5b813567ffffffffffffffff8082111561101357611013610fd1565b604051601f8301601f19908116603f0116810190828211818310171561103b5761103b610fd1565b8160405283815286602085880101111561105457600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000806040838503121561108757600080fd5b823567ffffffffffffffff8082111561109f57600080fd5b6110ab86838701610fe7565b935060208501359150808211156110c157600080fd5b506110ce85828601610fe7565b9150509250929050565b6000806000606084860312156110ed57600080fd5b83359250602084013567ffffffffffffffff8082111561110c57600080fd5b61111887838801610fe7565b9350604086013591508082111561112e57600080fd5b5061113b86828701610fe7565b9150509250925092565b80356001600160a01b038116811461115c57600080fd5b919050565b6000806040838503121561117457600080fd5b61117d83611145565b946020939093013593505050565b86815260c0602082015260006111a460c0830188610f13565b82810360408401526111b68188610f13565b6001600160a01b0396909616606084015250506080810192909252151560a0909101529392505050565b6000602082840312156111f257600080fd5b6111fb82611145565b9392505050565b6020808252825182820181905260009190848201906040850190845b8181101561123a5783518352928401929184019160010161121e565b50909695505050505050565b60208082526024908201527f53425454656d706c6174653a2074656d706c61746520646f6573206e6f7420656040820152631e1a5cdd60e21b606082015260800190565b6020808252818101527f53425454656d706c6174653a206e6f742074656d706c61746520697373756572604082015260600190565b600181811c908216806112d357607f821691505b6020821081036105c057634e487b7160e01b600052602260045260246000fd5b60006020828403121561130557600080fd5b815180151581146111fb57600080fd5b60208082526021908201527f53425454656d706c6174653a206e616d652063616e6e6f7420626520656d70746040820152607960f81b606082015260800190565b60208082526028908201527f53425454656d706c6174653a206465736372697074696f6e2063616e6e6f7420604082015267626520656d70747960c01b606082015260800190565b6000600182016113be57634e487b7160e01b600052601160045260246000fd5b5060010190565b601f82111561140f57600081815260208120601f850160051c810160208610156113ec5750805b601f850160051c820191505b8181101561140b578281556001016113f8565b5050505b505050565b815167ffffffffffffffff81111561142e5761142e610fd1565b6114428161143c84546112bf565b846113c5565b602080601f831160018114611477576000841561145f5750858301515b600019600386901b1c1916600185901b17855561140b565b600085815260208120601f198616915b828110156114a657888601518255948401946001909101908401611487565b50858210156114c45787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b6040815260006114e76040830185610f13565b82810360208401526114f98185610f13565b9594505050505056fea2646970667358221220b5aa9c2289f07d740a8b4084ea86ab48e4be0c2fd955196cbaecc825e6415cb364736f6c63430008140033",
+  "devdoc": {
+    "details": "Contract for managing SBT templates that can be used to mint tokens",
+    "errors": {
+      "EnforcedPause()": [
+        {
+          "details": "The operation failed because the contract is paused."
+        }
+      ],
+      "ExpectedPause()": [
+        {
+          "details": "The operation failed because the contract is not paused."
+        }
+      ],
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ]
+    },
+    "events": {
+      "Paused(address)": {
+        "details": "Emitted when the pause is triggered by `account`."
+      },
+      "Unpaused(address)": {
+        "details": "Emitted when the pause is lifted by `account`."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "createTemplate(string,string)": {
+        "details": "Create a new SBT template",
+        "params": {
+          "description": "The description for the SBT template",
+          "name": "The name for the SBT template"
+        },
+        "returns": {
+          "_0": "templateId The ID of the created template"
+        }
+      },
+      "deactivateTemplate(uint256)": {
+        "details": "Deactivate a template",
+        "params": {
+          "templateId": "The ID of the template to deactivate"
+        }
+      },
+      "getIssuerTemplates(address)": {
+        "details": "Get all template IDs for an issuer",
+        "params": {
+          "issuer": "The address of the issuer"
+        },
+        "returns": {
+          "_0": "Array of template IDs"
+        }
+      },
+      "getTemplate(uint256)": {
+        "details": "Get template details",
+        "params": {
+          "templateId": "The ID of the template"
+        },
+        "returns": {
+          "_0": "Template struct with all template data"
+        }
+      },
+      "getTotalTemplates()": {
+        "details": "Get total number of templates created",
+        "returns": {
+          "_0": "The total template count"
+        }
+      },
+      "isTemplateActive(uint256)": {
+        "details": "Check if a template is active and exists",
+        "params": {
+          "templateId": "The ID of the template"
+        },
+        "returns": {
+          "_0": "Boolean indicating if template is active"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "paused()": {
+        "details": "Returns true if the contract is paused, and false otherwise."
+      },
+      "reactivateTemplate(uint256)": {
+        "details": "Reactivate a template",
+        "params": {
+          "templateId": "The ID of the template to reactivate"
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "updateTemplate(uint256,string,string)": {
+        "details": "Update an existing template",
+        "params": {
+          "description": "The new description for the template",
+          "name": "The new name for the template",
+          "templateId": "The ID of the template to update"
+        }
+      }
+    },
+    "title": "SBTTemplate",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 1911,
+        "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+        "label": "_paused",
+        "offset": 20,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 4702,
+        "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+        "label": "_templateIdCounter",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4707,
+        "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+        "label": "templates",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_struct(Template)4700_storage)"
+      },
+      {
+        "astId": 4712,
+        "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+        "label": "issuerTemplates",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Template)4700_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct SBTTemplate.Template)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Template)4700_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Template)4700_storage": {
+        "encoding": "inplace",
+        "label": "struct SBTTemplate.Template",
+        "members": [
+          {
+            "astId": 4689,
+            "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+            "label": "templateId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4691,
+            "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+            "label": "name",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 4693,
+            "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+            "label": "description",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 4695,
+            "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+            "label": "issuer",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 4697,
+            "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+            "label": "createdAt",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4699,
+            "contract": "contracts/SBTTemplate.sol:SBTTemplate",
+            "label": "active",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

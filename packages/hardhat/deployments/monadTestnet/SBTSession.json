@@ -1,0 +1,1001 @@
+{
+  "address": "0x1672551E251E0Cc40521Cdab4eC44095C6b25445",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_issuerRegistry",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_sbtTemplate",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "EnforcedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ExpectedPause",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Paused",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "claimer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "remainingMints",
+          "type": "uint256"
+        }
+      ],
+      "name": "SessionClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "maxMints",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "endTimestamp",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "name": "SessionCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        }
+      ],
+      "name": "SessionEnded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newCurrentMints",
+          "type": "uint256"
+        }
+      ],
+      "name": "SessionMintIncreased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "Unpaused",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxMints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "durationInSeconds",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "name": "createSession",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "endSession",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        }
+      ],
+      "name": "getIssuerSessions",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getSession",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "sessionId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "templateId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxMints",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "currentMints",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "endTimestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "issuer",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "active",
+              "type": "bool"
+            },
+            {
+              "internalType": "string",
+              "name": "title",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct SBTSession.Session",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getSessionStats",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "currentMints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxMints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "remainingMints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timeRemaining",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "hasClaimed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "claimer",
+          "type": "address"
+        }
+      ],
+      "name": "hasClaimedFromSession",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "incrementMintCount",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "isSessionClaimable",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "issuerRegistry",
+      "outputs": [
+        {
+          "internalType": "contract IssuerRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "issuerSessions",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sbtTemplate",
+      "outputs": [
+        {
+          "internalType": "contract SBTTemplate",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sbtTokenContract",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "sessions",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "sessionId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "templateId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxMints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "currentMints",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "endTimestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "issuer",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_sbtTokenContract",
+          "type": "address"
+        }
+      ],
+      "name": "setSBTTokenContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unpause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xc86b17d04a918025d4dadddc7f36985c43d3a97ae51b4a5094c7cfeaa47c903f",
+  "receipt": {
+    "to": null,
+    "from": "0xd82c3510567ce848DfcAD32b7e69877C0f66D9b1",
+    "contractAddress": "0x1672551E251E0Cc40521Cdab4eC44095C6b25445",
+    "transactionIndex": 9,
+    "gasUsed": "1589704",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000804000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000001000000000000000000000000000000000000020000000000000000800800000000000000000000000000000000400000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000040000000000000000000000000000000000000",
+    "blockHash": "0xe412629e25254b004a45446f91700bae24aeb0f3951094a95551c8a3635b56e6",
+    "transactionHash": "0xc86b17d04a918025d4dadddc7f36985c43d3a97ae51b4a5094c7cfeaa47c903f",
+    "logs": [
+      {
+        "transactionIndex": 9,
+        "blockNumber": 38310886,
+        "transactionHash": "0xc86b17d04a918025d4dadddc7f36985c43d3a97ae51b4a5094c7cfeaa47c903f",
+        "address": "0x1672551E251E0Cc40521Cdab4eC44095C6b25445",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000d82c3510567ce848dfcad32b7e69877c0f66d9b1"
+        ],
+        "data": "0x",
+        "logIndex": 28,
+        "blockHash": "0xe412629e25254b004a45446f91700bae24aeb0f3951094a95551c8a3635b56e6"
+      }
+    ],
+    "blockNumber": 38310886,
+    "cumulativeGasUsed": "5387537",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0xFB1FF20107a62fE550d83ACa4E4Bf460dD77a944",
+    "0x223A7cBfc7fAA7261E97EEEfFD7c8356A92B40be"
+  ],
+  "numDeployments": 2,
+  "solcInputHash": "127a6125411a5042ffefa71ec92c8b89",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_issuerRegistry\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_sbtTemplate\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"EnforcedPause\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ExpectedPause\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Paused\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"claimer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"remainingMints\",\"type\":\"uint256\"}],\"name\":\"SessionClaimed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxMints\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"endTimestamp\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"title\",\"type\":\"string\"}],\"name\":\"SessionCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"SessionEnded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newCurrentMints\",\"type\":\"uint256\"}],\"name\":\"SessionMintIncreased\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"Unpaused\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"durationInSeconds\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"title\",\"type\":\"string\"}],\"name\":\"createSession\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"}],\"name\":\"endSession\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"}],\"name\":\"getIssuerSessions\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"}],\"name\":\"getSession\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endTimestamp\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"internalType\":\"string\",\"name\":\"title\",\"type\":\"string\"}],\"internalType\":\"struct SBTSession.Session\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"}],\"name\":\"getSessionStats\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"currentMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"remainingMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timeRemaining\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasClaimed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"claimer\",\"type\":\"address\"}],\"name\":\"hasClaimedFromSession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"}],\"name\":\"incrementMintCount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"}],\"name\":\"isSessionClaimable\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"issuerRegistry\",\"outputs\":[{\"internalType\":\"contract IssuerRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"issuerSessions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sbtTemplate\",\"outputs\":[{\"internalType\":\"contract SBTTemplate\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sbtTokenContract\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"sessions\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"sessionId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"templateId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentMints\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endTimestamp\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"internalType\":\"string\",\"name\":\"title\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sbtTokenContract\",\"type\":\"address\"}],\"name\":\"setSBTTokenContract\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Contract for managing time-limited SBT minting sessions with unique IDs\",\"errors\":{\"EnforcedPause()\":[{\"details\":\"The operation failed because the contract is paused.\"}],\"ExpectedPause()\":[{\"details\":\"The operation failed because the contract is not paused.\"}],\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}]},\"events\":{\"Paused(address)\":{\"details\":\"Emitted when the pause is triggered by `account`.\"},\"Unpaused(address)\":{\"details\":\"Emitted when the pause is lifted by `account`.\"}},\"kind\":\"dev\",\"methods\":{\"createSession(uint256,uint256,uint256,string)\":{\"details\":\"Create a new minting session\",\"params\":{\"durationInSeconds\":\"How long the session should last\",\"maxMints\":\"Maximum number of tokens that can be minted in this session\",\"templateId\":\"The template ID to use for minting\",\"title\":\"Optional title for the session\"},\"returns\":{\"_0\":\"sessionId The unique session identifier\"}},\"endSession(bytes32)\":{\"details\":\"End a session early (only by issuer)\",\"params\":{\"sessionId\":\"The session to end\"}},\"getIssuerSessions(address)\":{\"details\":\"Get all session IDs for an issuer\",\"params\":{\"issuer\":\"The address of the issuer\"},\"returns\":{\"_0\":\"Array of session IDs\"}},\"getSession(bytes32)\":{\"details\":\"Get session details\",\"params\":{\"sessionId\":\"The session ID\"},\"returns\":{\"_0\":\"Session struct with all session data\"}},\"getSessionStats(bytes32)\":{\"details\":\"Get session statistics\",\"params\":{\"sessionId\":\"The session ID\"},\"returns\":{\"currentMints\":\"Current number of mints\",\"maxMints\":\"Maximum number of mints allowed\",\"remainingMints\":\"Number of mints remaining\",\"timeRemaining\":\"Seconds until session expires\"}},\"hasClaimedFromSession(bytes32,address)\":{\"details\":\"Check if an address has claimed from a session\",\"params\":{\"claimer\":\"The address to check\",\"sessionId\":\"The session ID\"},\"returns\":{\"_0\":\"Boolean indicating if address has claimed\"}},\"incrementMintCount(bytes32)\":{\"details\":\"Increment mint count (called by SBTToken contract)\",\"params\":{\"sessionId\":\"The session to increment\"}},\"isSessionClaimable(bytes32)\":{\"details\":\"Check if a session is currently active and can accept claims\",\"params\":{\"sessionId\":\"The session ID\"},\"returns\":{\"_0\":\"Boolean indicating if session is claimable\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"paused()\":{\"details\":\"Returns true if the contract is paused, and false otherwise.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"setSBTTokenContract(address)\":{\"details\":\"Set the SBTToken contract address (only owner can call this)\",\"params\":{\"_sbtTokenContract\":\"Address of the SBTToken contract\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"title\":\"SBTSession\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/SBTSession.sol\":\"SBTSession\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Pausable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/Pausable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which allows children to implement an emergency stop\\n * mechanism that can be triggered by an authorized account.\\n *\\n * This module is used through inheritance. It will make available the\\n * modifiers `whenNotPaused` and `whenPaused`, which can be applied to\\n * the functions of your contract. Note that they will not be pausable by\\n * simply including this module, only once the modifiers are put in place.\\n */\\nabstract contract Pausable is Context {\\n    bool private _paused;\\n\\n    /**\\n     * @dev Emitted when the pause is triggered by `account`.\\n     */\\n    event Paused(address account);\\n\\n    /**\\n     * @dev Emitted when the pause is lifted by `account`.\\n     */\\n    event Unpaused(address account);\\n\\n    /**\\n     * @dev The operation failed because the contract is paused.\\n     */\\n    error EnforcedPause();\\n\\n    /**\\n     * @dev The operation failed because the contract is not paused.\\n     */\\n    error ExpectedPause();\\n\\n    /**\\n     * @dev Initializes the contract in unpaused state.\\n     */\\n    constructor() {\\n        _paused = false;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is not paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    modifier whenNotPaused() {\\n        _requireNotPaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Modifier to make a function callable only when the contract is paused.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    modifier whenPaused() {\\n        _requirePaused();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns true if the contract is paused, and false otherwise.\\n     */\\n    function paused() public view virtual returns (bool) {\\n        return _paused;\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is paused.\\n     */\\n    function _requireNotPaused() internal view virtual {\\n        if (paused()) {\\n            revert EnforcedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Throws if the contract is not paused.\\n     */\\n    function _requirePaused() internal view virtual {\\n        if (!paused()) {\\n            revert ExpectedPause();\\n        }\\n    }\\n\\n    /**\\n     * @dev Triggers stopped state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must not be paused.\\n     */\\n    function _pause() internal virtual whenNotPaused {\\n        _paused = true;\\n        emit Paused(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns to normal state.\\n     *\\n     * Requirements:\\n     *\\n     * - The contract must be paused.\\n     */\\n    function _unpause() internal virtual whenPaused {\\n        _paused = false;\\n        emit Unpaused(_msgSender());\\n    }\\n}\\n\",\"keccak256\":\"0xb2e5f50762c27fb4b123e3619c3c02bdcba5e515309382e5bfb6f7d6486510bd\",\"license\":\"MIT\"},\"contracts/IssuerRegistry.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/utils/Pausable.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title IssuerRegistry\\r\\n * @dev Contract to manage authorized SBT issuers\\r\\n * @author SBT System POC\\r\\n */\\r\\ncontract IssuerRegistry is Ownable, Pausable {\\r\\n    struct IssuerInfo {\\r\\n        string name;\\r\\n        string organization;\\r\\n        bool authorized;\\r\\n        uint256 addedAt;\\r\\n    }\\r\\n\\r\\n    // Mapping from issuer address to issuer info\\r\\n    mapping(address => IssuerInfo) private issuers;\\r\\n\\r\\n    // Array to track all issuer addresses for enumeration\\r\\n    address[] public issuerAddresses;\\r\\n\\r\\n    // Mapping to track if address is in the array (for gas optimization)\\r\\n    mapping(address => bool) private isInArray;\\r\\n\\r\\n    // Events\\r\\n    event IssuerAdded(\\r\\n        address indexed issuer,\\r\\n        string name,\\r\\n        string organization,\\r\\n        uint256 timestamp\\r\\n    );\\r\\n\\r\\n    event IssuerRemoved(\\r\\n        address indexed issuer,\\r\\n        uint256 timestamp\\r\\n    );\\r\\n\\r\\n    event IssuerUpdated(\\r\\n        address indexed issuer,\\r\\n        string name,\\r\\n        string organization,\\r\\n        uint256 timestamp\\r\\n    );\\r\\n\\r\\n    constructor(address _owner) Ownable(_owner) {\\r\\n        // Add the owner as the first authorized issuer\\r\\n        _addIssuerInternal(_owner, \\\"System Admin\\\", \\\"SBT System\\\");\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Add a new authorized issuer\\r\\n     * @param issuer Address of the issuer\\r\\n     * @param name Name of the issuer\\r\\n     * @param organization Organization name\\r\\n     */\\r\\n    function addIssuer(\\r\\n        address issuer,\\r\\n        string memory name,\\r\\n        string memory organization\\r\\n    ) external onlyOwner whenNotPaused {\\r\\n        require(issuer != address(0), \\\"IssuerRegistry: Invalid issuer address\\\");\\r\\n        require(bytes(name).length > 0, \\\"IssuerRegistry: Name cannot be empty\\\");\\r\\n        require(!issuers[issuer].authorized, \\\"IssuerRegistry: Issuer already exists\\\");\\r\\n\\r\\n        _addIssuerInternal(issuer, name, organization);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Internal function to add issuer\\r\\n     */\\r\\n    function _addIssuerInternal(\\r\\n        address issuer,\\r\\n        string memory name,\\r\\n        string memory organization\\r\\n    ) internal {\\r\\n        issuers[issuer] = IssuerInfo({\\r\\n            name: name,\\r\\n            organization: organization,\\r\\n            authorized: true,\\r\\n            addedAt: block.timestamp\\r\\n        });\\r\\n\\r\\n        if (!isInArray[issuer]) {\\r\\n            issuerAddresses.push(issuer);\\r\\n            isInArray[issuer] = true;\\r\\n        }\\r\\n\\r\\n        emit IssuerAdded(issuer, name, organization, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Remove an authorized issuer\\r\\n     * @param issuer Address of the issuer to remove\\r\\n     */\\r\\n    function removeIssuer(address issuer) external onlyOwner whenNotPaused {\\r\\n        require(issuer != address(0), \\\"IssuerRegistry: Invalid issuer address\\\");\\r\\n        require(issuers[issuer].authorized, \\\"IssuerRegistry: Issuer not found\\\");\\r\\n        require(issuer != owner(), \\\"IssuerRegistry: Cannot remove owner\\\");\\r\\n\\r\\n        issuers[issuer].authorized = false;\\r\\n\\r\\n        emit IssuerRemoved(issuer, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Update issuer information\\r\\n     * @param issuer Address of the issuer\\r\\n     * @param name New name\\r\\n     * @param organization New organization\\r\\n     */\\r\\n    function updateIssuer(\\r\\n        address issuer,\\r\\n        string memory name,\\r\\n        string memory organization\\r\\n    ) external onlyOwner whenNotPaused {\\r\\n        require(issuer != address(0), \\\"IssuerRegistry: Invalid issuer address\\\");\\r\\n        require(issuers[issuer].authorized, \\\"IssuerRegistry: Issuer not found\\\");\\r\\n        require(bytes(name).length > 0, \\\"IssuerRegistry: Name cannot be empty\\\");\\r\\n\\r\\n        issuers[issuer].name = name;\\r\\n        issuers[issuer].organization = organization;\\r\\n\\r\\n        emit IssuerUpdated(issuer, name, organization, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Check if an address is an authorized issuer\\r\\n     * @param issuer Address to check\\r\\n     * @return bool True if authorized, false otherwise\\r\\n     */\\r\\n    function isAuthorizedIssuer(address issuer) external view returns (bool) {\\r\\n        return issuers[issuer].authorized;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get issuer information\\r\\n     * @param issuer Address of the issuer\\r\\n     * @return IssuerInfo struct containing issuer details\\r\\n     */\\r\\n    function getIssuerInfo(address issuer) external view returns (IssuerInfo memory) {\\r\\n        return issuers[issuer];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get all authorized issuer addresses\\r\\n     * @return address[] Array of all issuer addresses\\r\\n     */\\r\\n    function getAllIssuers() external view returns (address[] memory) {\\r\\n        uint256 authorizedCount = 0;\\r\\n\\r\\n        // Count authorized issuers\\r\\n        for (uint256 i = 0; i < issuerAddresses.length; i++) {\\r\\n            if (issuers[issuerAddresses[i]].authorized) {\\r\\n                authorizedCount++;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        // Create array of authorized issuers\\r\\n        address[] memory authorizedIssuers = new address[](authorizedCount);\\r\\n        uint256 index = 0;\\r\\n\\r\\n        for (uint256 i = 0; i < issuerAddresses.length; i++) {\\r\\n            if (issuers[issuerAddresses[i]].authorized) {\\r\\n                authorizedIssuers[index] = issuerAddresses[i];\\r\\n                index++;\\r\\n            }\\r\\n        }\\r\\n\\r\\n        return authorizedIssuers;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get total count of authorized issuers\\r\\n     * @return uint256 Count of authorized issuers\\r\\n     */\\r\\n    function getAuthorizedIssuerCount() external view returns (uint256) {\\r\\n        uint256 count = 0;\\r\\n        for (uint256 i = 0; i < issuerAddresses.length; i++) {\\r\\n            if (issuers[issuerAddresses[i]].authorized) {\\r\\n                count++;\\r\\n            }\\r\\n        }\\r\\n        return count;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Pause the contract\\r\\n     */\\r\\n    function pause() external onlyOwner {\\r\\n        _pause();\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Unpause the contract\\r\\n     */\\r\\n    function unpause() external onlyOwner {\\r\\n        _unpause();\\r\\n    }\\r\\n}\",\"keccak256\":\"0x2ff2ba6a3a1cc897ce7bc3452860e0ad8b4f75829100e34d867b694dacdc976b\",\"license\":\"MIT\"},\"contracts/SBTSession.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.19;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/utils/Pausable.sol\\\";\\r\\nimport \\\"./IssuerRegistry.sol\\\";\\r\\nimport \\\"./SBTTemplate.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title SBTSession\\r\\n * @dev Contract for managing time-limited SBT minting sessions with unique IDs\\r\\n */\\r\\ncontract SBTSession is Ownable, Pausable {\\r\\n    struct Session {\\r\\n        bytes32 sessionId;\\r\\n        uint256 templateId;\\r\\n        uint256 maxMints;\\r\\n        uint256 currentMints;\\r\\n        uint256 endTimestamp;\\r\\n        address issuer;\\r\\n        bool active;\\r\\n        string title; // Optional session title for UI\\r\\n    }\\r\\n\\r\\n    // State variables\\r\\n    mapping(bytes32 => Session) public sessions;\\r\\n    mapping(bytes32 => mapping(address => bool)) public hasClaimed;\\r\\n    mapping(address => bytes32[]) public issuerSessions;\\r\\n\\r\\n    // For tracking unique session generation\\r\\n    uint256 private _sessionNonce;\\r\\n\\r\\n    IssuerRegistry public immutable issuerRegistry;\\r\\n    SBTTemplate public immutable sbtTemplate;\\r\\n    address public sbtTokenContract;\\r\\n\\r\\n    // Events\\r\\n    event SessionCreated(\\r\\n        bytes32 indexed sessionId,\\r\\n        uint256 indexed templateId,\\r\\n        address indexed issuer,\\r\\n        uint256 maxMints,\\r\\n        uint256 endTimestamp,\\r\\n        string title\\r\\n    );\\r\\n\\r\\n    event SessionClaimed(\\r\\n        bytes32 indexed sessionId,\\r\\n        address indexed claimer,\\r\\n        uint256 remainingMints\\r\\n    );\\r\\n\\r\\n    event SessionEnded(bytes32 indexed sessionId, address indexed issuer);\\r\\n    event SessionMintIncreased(bytes32 indexed sessionId, uint256 newCurrentMints);\\r\\n\\r\\n    // Modifiers\\r\\n    modifier onlyAuthorizedIssuer() {\\r\\n        require(\\r\\n            issuerRegistry.isAuthorizedIssuer(msg.sender),\\r\\n            \\\"SBTSession: caller is not an authorized issuer\\\"\\r\\n        );\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier sessionExists(bytes32 sessionId) {\\r\\n        require(sessions[sessionId].issuer != address(0), \\\"SBTSession: session does not exist\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier onlySessionIssuer(bytes32 sessionId) {\\r\\n        require(sessions[sessionId].issuer == msg.sender, \\\"SBTSession: not session issuer\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier sessionActive(bytes32 sessionId) {\\r\\n        require(sessions[sessionId].active, \\\"SBTSession: session is not active\\\");\\r\\n        require(block.timestamp <= sessions[sessionId].endTimestamp, \\\"SBTSession: session has expired\\\");\\r\\n        require(sessions[sessionId].currentMints < sessions[sessionId].maxMints, \\\"SBTSession: session mint limit reached\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier onlySBTToken() {\\r\\n        require(msg.sender == sbtTokenContract, \\\"SBTSession: caller is not the SBT token contract\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    constructor(address _issuerRegistry, address _sbtTemplate) Ownable(msg.sender) {\\r\\n        require(_issuerRegistry != address(0), \\\"SBTSession: invalid issuer registry address\\\");\\r\\n        require(_sbtTemplate != address(0), \\\"SBTSession: invalid SBT template address\\\");\\r\\n\\r\\n        issuerRegistry = IssuerRegistry(_issuerRegistry);\\r\\n        sbtTemplate = SBTTemplate(_sbtTemplate);\\r\\n        _sessionNonce = 0;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Set the SBTToken contract address (only owner can call this)\\r\\n     * @param _sbtTokenContract Address of the SBTToken contract\\r\\n     */\\r\\n    function setSBTTokenContract(address _sbtTokenContract) external onlyOwner {\\r\\n        require(_sbtTokenContract != address(0), \\\"SBTSession: invalid SBT token contract address\\\");\\r\\n        sbtTokenContract = _sbtTokenContract;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Generate a unique session ID\\r\\n     * @param templateId The template ID for this session\\r\\n     * @param maxMints Maximum number of mints allowed\\r\\n     * @param endTimestamp When the session expires\\r\\n     * @param title Optional session title\\r\\n     * @return sessionId Unique session identifier\\r\\n     */\\r\\n    function generateUniqueSessionId(\\r\\n        uint256 templateId,\\r\\n        uint256 maxMints,\\r\\n        uint256 endTimestamp,\\r\\n        string memory title\\r\\n    ) private returns (bytes32) {\\r\\n        _sessionNonce++;\\r\\n        return keccak256(\\r\\n            abi.encodePacked(\\r\\n                msg.sender,\\r\\n                templateId,\\r\\n                maxMints,\\r\\n                endTimestamp,\\r\\n                title,\\r\\n                block.timestamp,\\r\\n                block.prevrandao,\\r\\n                _sessionNonce\\r\\n            )\\r\\n        );\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Create a new minting session\\r\\n     * @param templateId The template ID to use for minting\\r\\n     * @param maxMints Maximum number of tokens that can be minted in this session\\r\\n     * @param durationInSeconds How long the session should last\\r\\n     * @param title Optional title for the session\\r\\n     * @return sessionId The unique session identifier\\r\\n     */\\r\\n    function createSession(\\r\\n        uint256 templateId,\\r\\n        uint256 maxMints,\\r\\n        uint256 durationInSeconds,\\r\\n        string memory title\\r\\n    ) external onlyAuthorizedIssuer whenNotPaused returns (bytes32) {\\r\\n        require(sbtTemplate.isTemplateActive(templateId), \\\"SBTSession: template is not active\\\");\\r\\n        require(maxMints > 0, \\\"SBTSession: max mints must be greater than 0\\\");\\r\\n        require(durationInSeconds > 0, \\\"SBTSession: duration must be greater than 0\\\");\\r\\n\\r\\n        SBTTemplate.Template memory template = sbtTemplate.getTemplate(templateId);\\r\\n        require(template.issuer == msg.sender, \\\"SBTSession: not template owner\\\");\\r\\n\\r\\n        uint256 endTimestamp = block.timestamp + durationInSeconds;\\r\\n        bytes32 sessionId = generateUniqueSessionId(templateId, maxMints, endTimestamp, title);\\r\\n\\r\\n        // Ensure uniqueness (should be extremely rare to have collisions)\\r\\n        require(sessions[sessionId].issuer == address(0), \\\"SBTSession: session ID collision\\\");\\r\\n\\r\\n        sessions[sessionId] = Session({\\r\\n            sessionId: sessionId,\\r\\n            templateId: templateId,\\r\\n            maxMints: maxMints,\\r\\n            currentMints: 0,\\r\\n            endTimestamp: endTimestamp,\\r\\n            issuer: msg.sender,\\r\\n            active: true,\\r\\n            title: title\\r\\n        });\\r\\n\\r\\n        issuerSessions[msg.sender].push(sessionId);\\r\\n\\r\\n        emit SessionCreated(sessionId, templateId, msg.sender, maxMints, endTimestamp, title);\\r\\n\\r\\n        return sessionId;\\r\\n    }\\r\\n\\r\\n    // Note: claimFromSession is now handled directly in SBTToken.claimFromSession()\\r\\n    // This removes the two-step process of claim -> mint\\r\\n\\r\\n    /**\\r\\n     * @dev Increment mint count (called by SBTToken contract)\\r\\n     * @param sessionId The session to increment\\r\\n     */\\r\\n    function incrementMintCount(bytes32 sessionId)\\r\\n        external\\r\\n        onlySBTToken\\r\\n        sessionExists(sessionId)\\r\\n    {\\r\\n        // Only the SBTToken contract can call this\\r\\n        sessions[sessionId].currentMints++;\\r\\n        emit SessionMintIncreased(sessionId, sessions[sessionId].currentMints);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev End a session early (only by issuer)\\r\\n     * @param sessionId The session to end\\r\\n     */\\r\\n    function endSession(bytes32 sessionId)\\r\\n        external\\r\\n        sessionExists(sessionId)\\r\\n        onlySessionIssuer(sessionId)\\r\\n        whenNotPaused\\r\\n    {\\r\\n        require(sessions[sessionId].active, \\\"SBTSession: session already ended\\\");\\r\\n\\r\\n        sessions[sessionId].active = false;\\r\\n        emit SessionEnded(sessionId, msg.sender);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get session details\\r\\n     * @param sessionId The session ID\\r\\n     * @return Session struct with all session data\\r\\n     */\\r\\n    function getSession(bytes32 sessionId)\\r\\n        external\\r\\n        view\\r\\n        sessionExists(sessionId)\\r\\n        returns (Session memory)\\r\\n    {\\r\\n        return sessions[sessionId];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get all session IDs for an issuer\\r\\n     * @param issuer The address of the issuer\\r\\n     * @return Array of session IDs\\r\\n     */\\r\\n    function getIssuerSessions(address issuer) external view returns (bytes32[] memory) {\\r\\n        return issuerSessions[issuer];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Check if an address has claimed from a session\\r\\n     * @param sessionId The session ID\\r\\n     * @param claimer The address to check\\r\\n     * @return Boolean indicating if address has claimed\\r\\n     */\\r\\n    function hasClaimedFromSession(bytes32 sessionId, address claimer)\\r\\n        external\\r\\n        view\\r\\n        returns (bool)\\r\\n    {\\r\\n        return hasClaimed[sessionId][claimer];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Check if a session is currently active and can accept claims\\r\\n     * @param sessionId The session ID\\r\\n     * @return Boolean indicating if session is claimable\\r\\n     */\\r\\n    function isSessionClaimable(bytes32 sessionId) external view returns (bool) {\\r\\n        if (sessions[sessionId].issuer == address(0)) return false;\\r\\n        if (!sessions[sessionId].active) return false;\\r\\n        if (block.timestamp > sessions[sessionId].endTimestamp) return false;\\r\\n        if (sessions[sessionId].currentMints >= sessions[sessionId].maxMints) return false;\\r\\n        return true;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get session statistics\\r\\n     * @param sessionId The session ID\\r\\n     * @return currentMints Current number of mints\\r\\n     * @return maxMints Maximum number of mints allowed\\r\\n     * @return remainingMints Number of mints remaining\\r\\n     * @return timeRemaining Seconds until session expires\\r\\n     */\\r\\n    function getSessionStats(bytes32 sessionId)\\r\\n        external\\r\\n        view\\r\\n        sessionExists(sessionId)\\r\\n        returns (\\r\\n            uint256 currentMints,\\r\\n            uint256 maxMints,\\r\\n            uint256 remainingMints,\\r\\n            uint256 timeRemaining\\r\\n        )\\r\\n    {\\r\\n        Session memory session = sessions[sessionId];\\r\\n        currentMints = session.currentMints;\\r\\n        maxMints = session.maxMints;\\r\\n        remainingMints = maxMints > currentMints ? maxMints - currentMints : 0;\\r\\n        timeRemaining = session.endTimestamp > block.timestamp ? session.endTimestamp - block.timestamp : 0;\\r\\n    }\\r\\n\\r\\n    // Admin functions\\r\\n    function pause() external onlyOwner {\\r\\n        _pause();\\r\\n    }\\r\\n\\r\\n    function unpause() external onlyOwner {\\r\\n        _unpause();\\r\\n    }\\r\\n}\",\"keccak256\":\"0x3db454046f6ff99356a51104a083907c0f8dbcb7edbc9f9a03031b002fb08310\",\"license\":\"MIT\"},\"contracts/SBTTemplate.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.19;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/utils/Pausable.sol\\\";\\r\\nimport \\\"./IssuerRegistry.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title SBTTemplate\\r\\n * @dev Contract for managing SBT templates that can be used to mint tokens\\r\\n */\\r\\ncontract SBTTemplate is Ownable, Pausable {\\r\\n    struct Template {\\r\\n        uint256 templateId;\\r\\n        string name;\\r\\n        string description;\\r\\n        address issuer;\\r\\n        uint256 createdAt;\\r\\n        bool active;\\r\\n    }\\r\\n\\r\\n    // State variables\\r\\n    uint256 private _templateIdCounter;\\r\\n    mapping(uint256 => Template) public templates;\\r\\n    mapping(address => uint256[]) public issuerTemplates;\\r\\n\\r\\n    IssuerRegistry public immutable issuerRegistry;\\r\\n\\r\\n    // Events\\r\\n    event TemplateCreated(\\r\\n        uint256 indexed templateId,\\r\\n        address indexed issuer,\\r\\n        string name,\\r\\n        string description\\r\\n    );\\r\\n\\r\\n    event TemplateUpdated(\\r\\n        uint256 indexed templateId,\\r\\n        string name,\\r\\n        string description\\r\\n    );\\r\\n\\r\\n    event TemplateDeactivated(uint256 indexed templateId);\\r\\n    event TemplateReactivated(uint256 indexed templateId);\\r\\n\\r\\n    // Modifiers\\r\\n    modifier onlyAuthorizedIssuer() {\\r\\n        require(\\r\\n            issuerRegistry.isAuthorizedIssuer(msg.sender),\\r\\n            \\\"SBTTemplate: caller is not an authorized issuer\\\"\\r\\n        );\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier templateExists(uint256 templateId) {\\r\\n        require(templateId <= _templateIdCounter && templateId > 0, \\\"SBTTemplate: template does not exist\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    modifier onlyTemplateIssuer(uint256 templateId) {\\r\\n        require(templates[templateId].issuer == msg.sender, \\\"SBTTemplate: not template issuer\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    constructor(address _issuerRegistry) Ownable(msg.sender) {\\r\\n        require(_issuerRegistry != address(0), \\\"SBTTemplate: invalid issuer registry address\\\");\\r\\n        issuerRegistry = IssuerRegistry(_issuerRegistry);\\r\\n        _templateIdCounter = 0;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Create a new SBT template\\r\\n     * @param name The name for the SBT template\\r\\n     * @param description The description for the SBT template\\r\\n     * @return templateId The ID of the created template\\r\\n     */\\r\\n    function createTemplate(\\r\\n        string memory name,\\r\\n        string memory description\\r\\n    ) external onlyAuthorizedIssuer whenNotPaused returns (uint256) {\\r\\n        require(bytes(name).length > 0, \\\"SBTTemplate: name cannot be empty\\\");\\r\\n        require(bytes(description).length > 0, \\\"SBTTemplate: description cannot be empty\\\");\\r\\n\\r\\n        _templateIdCounter++;\\r\\n        uint256 templateId = _templateIdCounter;\\r\\n\\r\\n        templates[templateId] = Template({\\r\\n            templateId: templateId,\\r\\n            name: name,\\r\\n            description: description,\\r\\n            issuer: msg.sender,\\r\\n            createdAt: block.timestamp,\\r\\n            active: true\\r\\n        });\\r\\n\\r\\n        issuerTemplates[msg.sender].push(templateId);\\r\\n\\r\\n        emit TemplateCreated(templateId, msg.sender, name, description);\\r\\n\\r\\n        return templateId;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Update an existing template\\r\\n     * @param templateId The ID of the template to update\\r\\n     * @param name The new name for the template\\r\\n     * @param description The new description for the template\\r\\n     */\\r\\n    function updateTemplate(\\r\\n        uint256 templateId,\\r\\n        string memory name,\\r\\n        string memory description\\r\\n    ) external templateExists(templateId) onlyTemplateIssuer(templateId) whenNotPaused {\\r\\n        require(bytes(name).length > 0, \\\"SBTTemplate: name cannot be empty\\\");\\r\\n        require(bytes(description).length > 0, \\\"SBTTemplate: description cannot be empty\\\");\\r\\n        require(templates[templateId].active, \\\"SBTTemplate: template is not active\\\");\\r\\n\\r\\n        templates[templateId].name = name;\\r\\n        templates[templateId].description = description;\\r\\n\\r\\n        emit TemplateUpdated(templateId, name, description);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Deactivate a template\\r\\n     * @param templateId The ID of the template to deactivate\\r\\n     */\\r\\n    function deactivateTemplate(uint256 templateId)\\r\\n        external\\r\\n        templateExists(templateId)\\r\\n        onlyTemplateIssuer(templateId)\\r\\n        whenNotPaused\\r\\n    {\\r\\n        require(templates[templateId].active, \\\"SBTTemplate: template already inactive\\\");\\r\\n\\r\\n        templates[templateId].active = false;\\r\\n        emit TemplateDeactivated(templateId);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Reactivate a template\\r\\n     * @param templateId The ID of the template to reactivate\\r\\n     */\\r\\n    function reactivateTemplate(uint256 templateId)\\r\\n        external\\r\\n        templateExists(templateId)\\r\\n        onlyTemplateIssuer(templateId)\\r\\n        whenNotPaused\\r\\n    {\\r\\n        require(!templates[templateId].active, \\\"SBTTemplate: template already active\\\");\\r\\n\\r\\n        templates[templateId].active = true;\\r\\n        emit TemplateReactivated(templateId);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get template details\\r\\n     * @param templateId The ID of the template\\r\\n     * @return Template struct with all template data\\r\\n     */\\r\\n    function getTemplate(uint256 templateId)\\r\\n        external\\r\\n        view\\r\\n        templateExists(templateId)\\r\\n        returns (Template memory)\\r\\n    {\\r\\n        return templates[templateId];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get all template IDs for an issuer\\r\\n     * @param issuer The address of the issuer\\r\\n     * @return Array of template IDs\\r\\n     */\\r\\n    function getIssuerTemplates(address issuer) external view returns (uint256[] memory) {\\r\\n        return issuerTemplates[issuer];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get total number of templates created\\r\\n     * @return The total template count\\r\\n     */\\r\\n    function getTotalTemplates() external view returns (uint256) {\\r\\n        return _templateIdCounter;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Check if a template is active and exists\\r\\n     * @param templateId The ID of the template\\r\\n     * @return Boolean indicating if template is active\\r\\n     */\\r\\n    function isTemplateActive(uint256 templateId) external view returns (bool) {\\r\\n        if (templateId > _templateIdCounter || templateId == 0) {\\r\\n            return false;\\r\\n        }\\r\\n        return templates[templateId].active;\\r\\n    }\\r\\n\\r\\n    // Admin functions\\r\\n    function pause() external onlyOwner {\\r\\n        _pause();\\r\\n    }\\r\\n\\r\\n    function unpause() external onlyOwner {\\r\\n        _unpause();\\r\\n    }\\r\\n}\",\"keccak256\":\"0x7677115b228ccfea1bf5bff2849b682bfd7f1d6c4f375a16b82d5cffae4f3569\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60c06040523480156200001157600080fd5b5060405162001d3338038062001d338339810160408190526200003491620001d4565b33806200005c57604051631e4fbdf760e01b8152600060048201526024015b60405180910390fd5b620000678162000167565b506000805460ff60a01b191690556001600160a01b038216620000e15760405162461bcd60e51b815260206004820152602b60248201527f53425453657373696f6e3a20696e76616c69642069737375657220726567697360448201526a747279206164647265737360a81b606482015260840162000053565b6001600160a01b0381166200014a5760405162461bcd60e51b815260206004820152602860248201527f53425453657373696f6e3a20696e76616c6964205342542074656d706c617465604482015267206164647265737360c01b606482015260840162000053565b6001600160a01b039182166080521660a05260006004556200020c565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b80516001600160a01b0381168114620001cf57600080fd5b919050565b60008060408385031215620001e857600080fd5b620001f383620001b7565b91506200020360208401620001b7565b90509250929050565b60805160a051611aec62000247600039600081816101ff0152818161080c01526109b801526000818161026201526107180152611aec6000f3fe608060405234801561001057600080fd5b50600436106101375760003560e01c80638ad2c85c116100b8578063cc1d9d381161007c578063cc1d9d38146102d6578063da6ea2aa146102f6578063db67dcc714610309578063f048be641461033c578063f2fde38b1461034f578063fcaf76201461036257600080fd5b80638ad2c85c1461024a5780638bfc18511461025d5780638da5cb5b1461028457806392a42d1d146102955780639ce3efe6146102c357600080fd5b8063715018a6116100ff578063715018a6146101cb5780637dbd2832146101d357806380d6e3b1146101fa5780638237220e146102215780638456cb591461024257600080fd5b806339b240bd1461013c5780633f4ba83a146101655780635c975abb1461016f5780636de8095b1461018d5780636ed81eca146101b8575b600080fd5b61014f61014a3660046113c7565b610375565b60405161015c9190611430565b60405180910390f35b61016d61051f565b005b600054600160a01b900460ff165b604051901515815260200161015c565b6005546101a0906001600160a01b031681565b6040516001600160a01b03909116815260200161015c565b61017d6101c63660046113c7565b610531565b61016d6105cf565b6101e66101e13660046113c7565b6105e1565b60405161015c9897969594939291906114a7565b6101a07f000000000000000000000000000000000000000000000000000000000000000081565b61023461022f366004611513565b6106bf565b60405190815260200161015c565b61016d6106f0565b6102346102583660046115d7565b610700565b6101a07f000000000000000000000000000000000000000000000000000000000000000081565b6000546001600160a01b03166101a0565b61017d6102a3366004611674565b600260209081526000928352604080842090915290825290205460ff1681565b61016d6102d13660046113c7565b610c76565b6102e96102e43660046116a4565b610ddf565b60405161015c91906116c8565b61016d6103043660046113c7565b610e4b565b61031c6103173660046113c7565b610f6d565b60408051948552602085019390935291830152606082015260800161015c565b61016d61034a3660046116a4565b611105565b61016d61035d3660046116a4565b61119c565b61017d610370366004611674565b6111da565b6103cb604051806101000160405280600080191681526020016000815260200160008152602001600081526020016000815260200160006001600160a01b03168152602001600015158152602001606081525090565b60008281526001602052604090206005015482906001600160a01b031661040d5760405162461bcd60e51b81526004016104049061170c565b60405180910390fd5b600083815260016020818152604092839020835161010081018552815481529281015491830191909152600281015492820192909252600382015460608201526004820154608082015260058201546001600160a01b03811660a0830152600160a01b900460ff16151560c082015260068201805491929160e0840191906104949061174e565b80601f01602080910402602001604051908101604052809291908181526020018280546104c09061174e565b801561050d5780601f106104e25761010080835404028352916020019161050d565b820191906000526020600020905b8154815290600101906020018083116104f057829003601f168201915b50505050508152505091505b50919050565b610527611207565b61052f611234565b565b6000818152600160205260408120600501546001600160a01b031661055857506000919050565b600082815260016020526040902060050154600160a01b900460ff1661058057506000919050565b6000828152600160205260409020600401544211156105a157506000919050565b60008281526001602052604090206002810154600390910154106105c757506000919050565b506001919050565b6105d7611207565b61052f6000611289565b6001602081905260009182526040909120805491810154600282015460038301546004840154600585015460068601805495969495939492936001600160a01b03831693600160a01b90930460ff1692919061063c9061174e565b80601f01602080910402602001604051908101604052809291908181526020018280546106689061174e565b80156106b55780601f1061068a576101008083540402835291602001916106b5565b820191906000526020600020905b81548152906001019060200180831161069857829003601f168201915b5050505050905088565b600360205281600052604060002081815481106106db57600080fd5b90600052602060002001600091509150505481565b6106f8611207565b61052f6112d9565b6040516318dd0cb360e11b81523360048201526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906331ba196690602401602060405180830381865afa158015610767573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061078b9190611797565b6107ee5760405162461bcd60e51b815260206004820152602e60248201527f53425453657373696f6e3a2063616c6c6572206973206e6f7420616e2061757460448201526d3437b934bd32b21034b9b9bab2b960911b6064820152608401610404565b6107f661131c565b60405163e0a0d93360e01b8152600481018690527f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03169063e0a0d93390602401602060405180830381865afa15801561085b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061087f9190611797565b6108d65760405162461bcd60e51b815260206004820152602260248201527f53425453657373696f6e3a2074656d706c617465206973206e6f742061637469604482015261766560f01b6064820152608401610404565b6000841161093b5760405162461bcd60e51b815260206004820152602c60248201527f53425453657373696f6e3a206d6178206d696e7473206d75737420626520677260448201526b06561746572207468616e20360a41b6064820152608401610404565b6000831161099f5760405162461bcd60e51b815260206004820152602b60248201527f53425453657373696f6e3a206475726174696f6e206d7573742062652067726560448201526a061746572207468616e20360ac1b6064820152608401610404565b604051630c550f3d60e21b8152600481018690526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906331543cf490602401600060405180830381865afa158015610a07573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052610a2f9190810190611802565b60608101519091506001600160a01b03163314610a8e5760405162461bcd60e51b815260206004820152601e60248201527f53425453657373696f6e3a206e6f742074656d706c617465206f776e657200006044820152606401610404565b6000610a9a85426118df565b90506000610aaa88888488611347565b6000818152600160205260409020600501549091506001600160a01b031615610b155760405162461bcd60e51b815260206004820181905260248201527f53425453657373696f6e3a2073657373696f6e20494420636f6c6c6973696f6e6044820152606401610404565b60405180610100016040528082815260200189815260200188815260200160008152602001838152602001336001600160a01b031681526020016001151581526020018681525060016000838152602001908152602001600020600082015181600001556020820151816001015560408201518160020155606082015181600301556080820151816004015560a08201518160050160006101000a8154816001600160a01b0302191690836001600160a01b0316021790555060c08201518160050160146101000a81548160ff02191690831515021790555060e0820151816006019081610c039190611941565b50503360008181526003602090815260408083208054600181018255908452919092200184905551909150899083907f432804b7bc26c40da95e89cb3f8a73696054050dc0213bc16cdc1bd6825c426e90610c63908c9088908c90611a01565b60405180910390a4979650505050505050565b60008181526001602052604090206005015481906001600160a01b0316610caf5760405162461bcd60e51b81526004016104049061170c565b60008281526001602052604090206005015482906001600160a01b03163314610d1a5760405162461bcd60e51b815260206004820152601e60248201527f53425453657373696f6e3a206e6f742073657373696f6e2069737375657200006044820152606401610404565b610d2261131c565b600083815260016020526040902060050154600160a01b900460ff16610d945760405162461bcd60e51b815260206004820152602160248201527f53425453657373696f6e3a2073657373696f6e20616c726561647920656e64656044820152601960fa1b6064820152608401610404565b600083815260016020526040808220600501805460ff60a01b1916905551339185917fc9e7a2adf24493505410acc860e93c1496a1839dd92c581d0af821626de155739190a3505050565b6001600160a01b038116600090815260036020908152604091829020805483518184028101840190945280845260609392830182828015610e3f57602002820191906000526020600020905b815481526020019060010190808311610e2b575b50505050509050919050565b6005546001600160a01b03163314610ebe5760405162461bcd60e51b815260206004820152603060248201527f53425453657373696f6e3a2063616c6c6572206973206e6f742074686520534260448201526f15081d1bdad95b8818dbdb9d1c9858dd60821b6064820152608401610404565b60008181526001602052604090206005015481906001600160a01b0316610ef75760405162461bcd60e51b81526004016104049061170c565b6000828152600160205260408120600301805491610f1483611a29565b9190505550817f2b2f0cccea1de73e106b7dc6fe67ffb894df0471b4de1a93e728098b83615ad36001600085815260200190815260200160002060030154604051610f6191815260200190565b60405180910390a25050565b60008181526001602052604081206005015481908190819085906001600160a01b0316610fac5760405162461bcd60e51b81526004016104049061170c565b6000868152600160208181526040808420815161010081018352815481529381015492840192909252600282015490830152600381015460608301526004810154608083015260058101546001600160a01b03811660a0840152600160a01b900460ff16151560c083015260068101805460e08401919061102c9061174e565b80601f01602080910402602001604051908101604052809291908181526020018280546110589061174e565b80156110a55780601f1061107a576101008083540402835291602001916110a5565b820191906000526020600020905b81548152906001019060200180831161108857829003601f168201915b505050505081525050905080606001519550806040015194508585116110cc5760006110d6565b6110d68686611a42565b9350428160800151116110ea5760006110fa565b4281608001516110fa9190611a42565b925050509193509193565b61110d611207565b6001600160a01b03811661117a5760405162461bcd60e51b815260206004820152602e60248201527f53425453657373696f6e3a20696e76616c69642053425420746f6b656e20636f60448201526d6e7472616374206164647265737360901b6064820152608401610404565b600580546001600160a01b0319166001600160a01b0392909216919091179055565b6111a4611207565b6001600160a01b0381166111ce57604051631e4fbdf760e01b815260006004820152602401610404565b6111d781611289565b50565b60008281526002602090815260408083206001600160a01b038516845290915290205460ff165b92915050565b6000546001600160a01b0316331461052f5760405163118cdaa760e01b8152336004820152602401610404565b61123c61139d565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6112e161131c565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25861126c3390565b600054600160a01b900460ff161561052f5760405163d93c066560e01b815260040160405180910390fd5b600480546000918261135883611a29565b909155505060045460405161137d913391889188918891889142914491602001611a55565b604051602081830303815290604052805190602001209050949350505050565b600054600160a01b900460ff1661052f57604051638dfc202b60e01b815260040160405180910390fd5b6000602082840312156113d957600080fd5b5035919050565b60005b838110156113fb5781810151838201526020016113e3565b50506000910152565b6000815180845261141c8160208601602086016113e0565b601f01601f19169290920160200192915050565b6020815281516020820152602082015160408201526040820151606082015260608201516080820152608082015160a082015260018060a01b0360a08301511660c082015260c0820151151560e0820152600060e083015161010080818501525061149f610120840182611404565b949350505050565b60006101008a835289602084015288604084015287606084015286608084015260018060a01b03861660a084015284151560c08401528060e08401526114ef81840185611404565b9b9a5050505050505050505050565b6001600160a01b03811681146111d757600080fd5b6000806040838503121561152657600080fd5b8235611531816114fe565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b60405160c0810167ffffffffffffffff811182821017156115785761157861153f565b60405290565b604051601f8201601f1916810167ffffffffffffffff811182821017156115a7576115a761153f565b604052919050565b600067ffffffffffffffff8211156115c9576115c961153f565b50601f01601f191660200190565b600080600080608085870312156115ed57600080fd5b843593506020850135925060408501359150606085013567ffffffffffffffff81111561161957600080fd5b8501601f8101871361162a57600080fd5b803561163d611638826115af565b61157e565b81815288602083850101111561165257600080fd5b8160208401602083013760006020838301015280935050505092959194509250565b6000806040838503121561168757600080fd5b823591506020830135611699816114fe565b809150509250929050565b6000602082840312156116b657600080fd5b81356116c1816114fe565b9392505050565b6020808252825182820181905260009190848201906040850190845b81811015611700578351835292840192918401916001016116e4565b50909695505050505050565b60208082526022908201527f53425453657373696f6e3a2073657373696f6e20646f6573206e6f74206578696040820152611cdd60f21b606082015260800190565b600181811c9082168061176257607f821691505b60208210810361051957634e487b7160e01b600052602260045260246000fd5b8051801515811461179257600080fd5b919050565b6000602082840312156117a957600080fd5b6116c182611782565b600082601f8301126117c357600080fd5b81516117d1611638826115af565b8181528460208386010111156117e657600080fd5b61149f8260208301602087016113e0565b8051611792816114fe565b60006020828403121561181457600080fd5b815167ffffffffffffffff8082111561182c57600080fd5b9083019060c0828603121561184057600080fd5b611848611555565b8251815260208301518281111561185e57600080fd5b61186a878286016117b2565b60208301525060408301518281111561188257600080fd5b61188e878286016117b2565b6040830152506118a0606084016117f7565b6060820152608083015160808201526118bb60a08401611782565b60a082015295945050505050565b634e487b7160e01b600052601160045260246000fd5b80820180821115611201576112016118c9565b601f82111561193c57600081815260208120601f850160051c810160208610156119195750805b601f850160051c820191505b8181101561193857828155600101611925565b5050505b505050565b815167ffffffffffffffff81111561195b5761195b61153f565b61196f81611969845461174e565b846118f2565b602080601f8311600181146119a4576000841561198c5750858301515b600019600386901b1c1916600185901b178555611938565b600085815260208120601f198616915b828110156119d3578886015182559484019460019091019084016119b4565b50858210156119f15787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b838152826020820152606060408201526000611a206060830184611404565b95945050505050565b600060018201611a3b57611a3b6118c9565b5060010190565b81810381811115611201576112016118c9565b6bffffffffffffffffffffffff198960601b16815287601482015286603482015285605482015260008551611a91816074850160208a016113e0565b6074920191820194909452609481019290925260b482015260d401969550505050505056fea2646970667358221220033e56043fdcbac24e97988f25e076f3cdd5fb982ab3c36754ccb5590f9cee2f64736f6c63430008140033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106101375760003560e01c80638ad2c85c116100b8578063cc1d9d381161007c578063cc1d9d38146102d6578063da6ea2aa146102f6578063db67dcc714610309578063f048be641461033c578063f2fde38b1461034f578063fcaf76201461036257600080fd5b80638ad2c85c1461024a5780638bfc18511461025d5780638da5cb5b1461028457806392a42d1d146102955780639ce3efe6146102c357600080fd5b8063715018a6116100ff578063715018a6146101cb5780637dbd2832146101d357806380d6e3b1146101fa5780638237220e146102215780638456cb591461024257600080fd5b806339b240bd1461013c5780633f4ba83a146101655780635c975abb1461016f5780636de8095b1461018d5780636ed81eca146101b8575b600080fd5b61014f61014a3660046113c7565b610375565b60405161015c9190611430565b60405180910390f35b61016d61051f565b005b600054600160a01b900460ff165b604051901515815260200161015c565b6005546101a0906001600160a01b031681565b6040516001600160a01b03909116815260200161015c565b61017d6101c63660046113c7565b610531565b61016d6105cf565b6101e66101e13660046113c7565b6105e1565b60405161015c9897969594939291906114a7565b6101a07f000000000000000000000000000000000000000000000000000000000000000081565b61023461022f366004611513565b6106bf565b60405190815260200161015c565b61016d6106f0565b6102346102583660046115d7565b610700565b6101a07f000000000000000000000000000000000000000000000000000000000000000081565b6000546001600160a01b03166101a0565b61017d6102a3366004611674565b600260209081526000928352604080842090915290825290205460ff1681565b61016d6102d13660046113c7565b610c76565b6102e96102e43660046116a4565b610ddf565b60405161015c91906116c8565b61016d6103043660046113c7565b610e4b565b61031c6103173660046113c7565b610f6d565b60408051948552602085019390935291830152606082015260800161015c565b61016d61034a3660046116a4565b611105565b61016d61035d3660046116a4565b61119c565b61017d610370366004611674565b6111da565b6103cb604051806101000160405280600080191681526020016000815260200160008152602001600081526020016000815260200160006001600160a01b03168152602001600015158152602001606081525090565b60008281526001602052604090206005015482906001600160a01b031661040d5760405162461bcd60e51b81526004016104049061170c565b60405180910390fd5b600083815260016020818152604092839020835161010081018552815481529281015491830191909152600281015492820192909252600382015460608201526004820154608082015260058201546001600160a01b03811660a0830152600160a01b900460ff16151560c082015260068201805491929160e0840191906104949061174e565b80601f01602080910402602001604051908101604052809291908181526020018280546104c09061174e565b801561050d5780601f106104e25761010080835404028352916020019161050d565b820191906000526020600020905b8154815290600101906020018083116104f057829003601f168201915b50505050508152505091505b50919050565b610527611207565b61052f611234565b565b6000818152600160205260408120600501546001600160a01b031661055857506000919050565b600082815260016020526040902060050154600160a01b900460ff1661058057506000919050565b6000828152600160205260409020600401544211156105a157506000919050565b60008281526001602052604090206002810154600390910154106105c757506000919050565b506001919050565b6105d7611207565b61052f6000611289565b6001602081905260009182526040909120805491810154600282015460038301546004840154600585015460068601805495969495939492936001600160a01b03831693600160a01b90930460ff1692919061063c9061174e565b80601f01602080910402602001604051908101604052809291908181526020018280546106689061174e565b80156106b55780601f1061068a576101008083540402835291602001916106b5565b820191906000526020600020905b81548152906001019060200180831161069857829003601f168201915b5050505050905088565b600360205281600052604060002081815481106106db57600080fd5b90600052602060002001600091509150505481565b6106f8611207565b61052f6112d9565b6040516318dd0cb360e11b81523360048201526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906331ba196690602401602060405180830381865afa158015610767573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061078b9190611797565b6107ee5760405162461bcd60e51b815260206004820152602e60248201527f53425453657373696f6e3a2063616c6c6572206973206e6f7420616e2061757460448201526d3437b934bd32b21034b9b9bab2b960911b6064820152608401610404565b6107f661131c565b60405163e0a0d93360e01b8152600481018690527f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03169063e0a0d93390602401602060405180830381865afa15801561085b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061087f9190611797565b6108d65760405162461bcd60e51b815260206004820152602260248201527f53425453657373696f6e3a2074656d706c617465206973206e6f742061637469604482015261766560f01b6064820152608401610404565b6000841161093b5760405162461bcd60e51b815260206004820152602c60248201527f53425453657373696f6e3a206d6178206d696e7473206d75737420626520677260448201526b06561746572207468616e20360a41b6064820152608401610404565b6000831161099f5760405162461bcd60e51b815260206004820152602b60248201527f53425453657373696f6e3a206475726174696f6e206d7573742062652067726560448201526a061746572207468616e20360ac1b6064820152608401610404565b604051630c550f3d60e21b8152600481018690526000907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906331543cf490602401600060405180830381865afa158015610a07573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052610a2f9190810190611802565b60608101519091506001600160a01b03163314610a8e5760405162461bcd60e51b815260206004820152601e60248201527f53425453657373696f6e3a206e6f742074656d706c617465206f776e657200006044820152606401610404565b6000610a9a85426118df565b90506000610aaa88888488611347565b6000818152600160205260409020600501549091506001600160a01b031615610b155760405162461bcd60e51b815260206004820181905260248201527f53425453657373696f6e3a2073657373696f6e20494420636f6c6c6973696f6e6044820152606401610404565b60405180610100016040528082815260200189815260200188815260200160008152602001838152602001336001600160a01b031681526020016001151581526020018681525060016000838152602001908152602001600020600082015181600001556020820151816001015560408201518160020155606082015181600301556080820151816004015560a08201518160050160006101000a8154816001600160a01b0302191690836001600160a01b0316021790555060c08201518160050160146101000a81548160ff02191690831515021790555060e0820151816006019081610c039190611941565b50503360008181526003602090815260408083208054600181018255908452919092200184905551909150899083907f432804b7bc26c40da95e89cb3f8a73696054050dc0213bc16cdc1bd6825c426e90610c63908c9088908c90611a01565b60405180910390a4979650505050505050565b60008181526001602052604090206005015481906001600160a01b0316610caf5760405162461bcd60e51b81526004016104049061170c565b60008281526001602052604090206005015482906001600160a01b03163314610d1a5760405162461bcd60e51b815260206004820152601e60248201527f53425453657373696f6e3a206e6f742073657373696f6e2069737375657200006044820152606401610404565b610d2261131c565b600083815260016020526040902060050154600160a01b900460ff16610d945760405162461bcd60e51b815260206004820152602160248201527f53425453657373696f6e3a2073657373696f6e20616c726561647920656e64656044820152601960fa1b6064820152608401610404565b600083815260016020526040808220600501805460ff60a01b1916905551339185917fc9e7a2adf24493505410acc860e93c1496a1839dd92c581d0af821626de155739190a3505050565b6001600160a01b038116600090815260036020908152604091829020805483518184028101840190945280845260609392830182828015610e3f57602002820191906000526020600020905b815481526020019060010190808311610e2b575b50505050509050919050565b6005546001600160a01b03163314610ebe5760405162461bcd60e51b815260206004820152603060248201527f53425453657373696f6e3a2063616c6c6572206973206e6f742074686520534260448201526f15081d1bdad95b8818dbdb9d1c9858dd60821b6064820152608401610404565b60008181526001602052604090206005015481906001600160a01b0316610ef75760405162461bcd60e51b81526004016104049061170c565b6000828152600160205260408120600301805491610f1483611a29565b9190505550817f2b2f0cccea1de73e106b7dc6fe67ffb894df0471b4de1a93e728098b83615ad36001600085815260200190815260200160002060030154604051610f6191815260200190565b60405180910390a25050565b60008181526001602052604081206005015481908190819085906001600160a01b0316610fac5760405162461bcd60e51b81526004016104049061170c565b6000868152600160208181526040808420815161010081018352815481529381015492840192909252600282015490830152600381015460608301526004810154608083015260058101546001600160a01b03811660a0840152600160a01b900460ff16151560c083015260068101805460e08401919061102c9061174e565b80601f01602080910402602001604051908101604052809291908181526020018280546110589061174e565b80156110a55780601f1061107a576101008083540402835291602001916110a5565b820191906000526020600020905b81548152906001019060200180831161108857829003601f168201915b505050505081525050905080606001519550806040015194508585116110cc5760006110d6565b6110d68686611a42565b9350428160800151116110ea5760006110fa565b4281608001516110fa9190611a42565b925050509193509193565b61110d611207565b6001600160a01b03811661117a5760405162461bcd60e51b815260206004820152602e60248201527f53425453657373696f6e3a20696e76616c69642053425420746f6b656e20636f60448201526d6e7472616374206164647265737360901b6064820152608401610404565b600580546001600160a01b0319166001600160a01b0392909216919091179055565b6111a4611207565b6001600160a01b0381166111ce57604051631e4fbdf760e01b815260006004820152602401610404565b6111d781611289565b50565b60008281526002602090815260408083206001600160a01b038516845290915290205460ff165b92915050565b6000546001600160a01b0316331461052f5760405163118cdaa760e01b8152336004820152602401610404565b61123c61139d565b6000805460ff60a01b191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b03909116815260200160405180910390a1565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6112e161131c565b6000805460ff60a01b1916600160a01b1790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a25861126c3390565b600054600160a01b900460ff161561052f5760405163d93c066560e01b815260040160405180910390fd5b600480546000918261135883611a29565b909155505060045460405161137d913391889188918891889142914491602001611a55565b604051602081830303815290604052805190602001209050949350505050565b600054600160a01b900460ff1661052f57604051638dfc202b60e01b815260040160405180910390fd5b6000602082840312156113d957600080fd5b5035919050565b60005b838110156113fb5781810151838201526020016113e3565b50506000910152565b6000815180845261141c8160208601602086016113e0565b601f01601f19169290920160200192915050565b6020815281516020820152602082015160408201526040820151606082015260608201516080820152608082015160a082015260018060a01b0360a08301511660c082015260c0820151151560e0820152600060e083015161010080818501525061149f610120840182611404565b949350505050565b60006101008a835289602084015288604084015287606084015286608084015260018060a01b03861660a084015284151560c08401528060e08401526114ef81840185611404565b9b9a5050505050505050505050565b6001600160a01b03811681146111d757600080fd5b6000806040838503121561152657600080fd5b8235611531816114fe565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b60405160c0810167ffffffffffffffff811182821017156115785761157861153f565b60405290565b604051601f8201601f1916810167ffffffffffffffff811182821017156115a7576115a761153f565b604052919050565b600067ffffffffffffffff8211156115c9576115c961153f565b50601f01601f191660200190565b600080600080608085870312156115ed57600080fd5b843593506020850135925060408501359150606085013567ffffffffffffffff81111561161957600080fd5b8501601f8101871361162a57600080fd5b803561163d611638826115af565b61157e565b81815288602083850101111561165257600080fd5b8160208401602083013760006020838301015280935050505092959194509250565b6000806040838503121561168757600080fd5b823591506020830135611699816114fe565b809150509250929050565b6000602082840312156116b657600080fd5b81356116c1816114fe565b9392505050565b6020808252825182820181905260009190848201906040850190845b81811015611700578351835292840192918401916001016116e4565b50909695505050505050565b60208082526022908201527f53425453657373696f6e3a2073657373696f6e20646f6573206e6f74206578696040820152611cdd60f21b606082015260800190565b600181811c9082168061176257607f821691505b60208210810361051957634e487b7160e01b600052602260045260246000fd5b8051801515811461179257600080fd5b919050565b6000602082840312156117a957600080fd5b6116c182611782565b600082601f8301126117c357600080fd5b81516117d1611638826115af565b8181528460208386010111156117e657600080fd5b61149f8260208301602087016113e0565b8051611792816114fe565b60006020828403121561181457600080fd5b815167ffffffffffffffff8082111561182c57600080fd5b9083019060c0828603121561184057600080fd5b611848611555565b8251815260208301518281111561185e57600080fd5b61186a878286016117b2565b60208301525060408301518281111561188257600080fd5b61188e878286016117b2565b6040830152506118a0606084016117f7565b6060820152608083015160808201526118bb60a08401611782565b60a082015295945050505050565b634e487b7160e01b600052601160045260246000fd5b80820180821115611201576112016118c9565b601f82111561193c57600081815260208120601f850160051c810160208610156119195750805b601f850160051c820191505b8181101561193857828155600101611925565b5050505b505050565b815167ffffffffffffffff81111561195b5761195b61153f565b61196f81611969845461174e565b846118f2565b602080601f8311600181146119a4576000841561198c5750858301515b600019600386901b1c1916600185901b178555611938565b600085815260208120601f198616915b828110156119d3578886015182559484019460019091019084016119b4565b50858210156119f15787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b838152826020820152606060408201526000611a206060830184611404565b95945050505050565b600060018201611a3b57611a3b6118c9565b5060010190565b81810381811115611201576112016118c9565b6bffffffffffffffffffffffff198960601b16815287601482015286603482015285605482015260008551611a91816074850160208a016113e0565b6074920191820194909452609481019290925260b482015260d401969550505050505056fea2646970667358221220033e56043fdcbac24e97988f25e076f3cdd5fb982ab3c36754ccb5590f9cee2f64736f6c63430008140033",
+  "devdoc": {
+    "details": "Contract for managing time-limited SBT minting sessions with unique IDs",
+    "errors": {
+      "EnforcedPause()": [
+        {
+          "details": "The operation failed because the contract is paused."
+        }
+      ],
+      "ExpectedPause()": [
+        {
+          "details": "The operation failed because the contract is not paused."
+        }
+      ],
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ]
+    },
+    "events": {
+      "Paused(address)": {
+        "details": "Emitted when the pause is triggered by `account`."
+      },
+      "Unpaused(address)": {
+        "details": "Emitted when the pause is lifted by `account`."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "createSession(uint256,uint256,uint256,string)": {
+        "details": "Create a new minting session",
+        "params": {
+          "durationInSeconds": "How long the session should last",
+          "maxMints": "Maximum number of tokens that can be minted in this session",
+          "templateId": "The template ID to use for minting",
+          "title": "Optional title for the session"
+        },
+        "returns": {
+          "_0": "sessionId The unique session identifier"
+        }
+      },
+      "endSession(bytes32)": {
+        "details": "End a session early (only by issuer)",
+        "params": {
+          "sessionId": "The session to end"
+        }
+      },
+      "getIssuerSessions(address)": {
+        "details": "Get all session IDs for an issuer",
+        "params": {
+          "issuer": "The address of the issuer"
+        },
+        "returns": {
+          "_0": "Array of session IDs"
+        }
+      },
+      "getSession(bytes32)": {
+        "details": "Get session details",
+        "params": {
+          "sessionId": "The session ID"
+        },
+        "returns": {
+          "_0": "Session struct with all session data"
+        }
+      },
+      "getSessionStats(bytes32)": {
+        "details": "Get session statistics",
+        "params": {
+          "sessionId": "The session ID"
+        },
+        "returns": {
+          "currentMints": "Current number of mints",
+          "maxMints": "Maximum number of mints allowed",
+          "remainingMints": "Number of mints remaining",
+          "timeRemaining": "Seconds until session expires"
+        }
+      },
+      "hasClaimedFromSession(bytes32,address)": {
+        "details": "Check if an address has claimed from a session",
+        "params": {
+          "claimer": "The address to check",
+          "sessionId": "The session ID"
+        },
+        "returns": {
+          "_0": "Boolean indicating if address has claimed"
+        }
+      },
+      "incrementMintCount(bytes32)": {
+        "details": "Increment mint count (called by SBTToken contract)",
+        "params": {
+          "sessionId": "The session to increment"
+        }
+      },
+      "isSessionClaimable(bytes32)": {
+        "details": "Check if a session is currently active and can accept claims",
+        "params": {
+          "sessionId": "The session ID"
+        },
+        "returns": {
+          "_0": "Boolean indicating if session is claimable"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "paused()": {
+        "details": "Returns true if the contract is paused, and false otherwise."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "setSBTTokenContract(address)": {
+        "details": "Set the SBTToken contract address (only owner can call this)",
+        "params": {
+          "_sbtTokenContract": "Address of the SBTToken contract"
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "title": "SBTSession",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 1911,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "_paused",
+        "offset": 20,
+        "slot": "0",
+        "type": "t_bool"
+      },
+      {
+        "astId": 4029,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "sessions",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_bytes32,t_struct(Session)4024_storage)"
+      },
+      {
+        "astId": 4035,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "hasClaimed",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_bytes32,t_mapping(t_address,t_bool))"
+      },
+      {
+        "astId": 4040,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "issuerSessions",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_array(t_bytes32)dyn_storage)"
+      },
+      {
+        "astId": 4042,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "_sessionNonce",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4050,
+        "contract": "contracts/SBTSession.sol:SBTSession",
+        "label": "sbtTokenContract",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_bytes32)dyn_storage": {
+        "base": "t_bytes32",
+        "encoding": "dynamic_array",
+        "label": "bytes32[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_array(t_bytes32)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bytes32[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_bytes32)dyn_storage"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_bytes32,t_mapping(t_address,t_bool))": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => mapping(address => bool))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_bool)"
+      },
+      "t_mapping(t_bytes32,t_struct(Session)4024_storage)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => struct SBTSession.Session)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Session)4024_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Session)4024_storage": {
+        "encoding": "inplace",
+        "label": "struct SBTSession.Session",
+        "members": [
+          {
+            "astId": 4009,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "sessionId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bytes32"
+          },
+          {
+            "astId": 4011,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "templateId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4013,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "maxMints",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4015,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "currentMints",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4017,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "endTimestamp",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4019,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "issuer",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address"
+          },
+          {
+            "astId": 4021,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "active",
+            "offset": 20,
+            "slot": "5",
+            "type": "t_bool"
+          },
+          {
+            "astId": 4023,
+            "contract": "contracts/SBTSession.sol:SBTSession",
+            "label": "title",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_string_storage"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

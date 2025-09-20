@@ -1,7 +1,7 @@
 {
   "project": {
     "name": "SBT System POC",
-    "description": "Soulbound Token System Proof of Concept for Nomad Bitz 2025",
+    "description": "Soulbound Token System Proof of Concept for Monad Bitz 2025",
     "duration": "3-4 hours",
     "tech_stack": ["Scaffold-ETH2", "Next.js", "React", "TypeScript", "Solidity", "Hardhat", "RainbowKit", "Wagmi"],
     "deployment": "Monad Testnet/Mainnet"
@@ -98,18 +98,13 @@
       "form_fields": {
         "name": {
           "type": "text",
-          "default": "Nomad Bitz 2025 Bangkok",
+          "default": "Monad Bitz 2025 Bangkok",
           "required": true
         },
         "description": {
           "type": "textarea",
-          "default": "Soulbound Token for Developer who intercept with Chao and Nomad",
+          "default": "Soulbound Token for Developer who intercept with Chao and Monad",
           "required": true
-        },
-        "image": {
-          "type": "file",
-          "accept": "image/*",
-          "description": "Upload to IPFS"
         },
         "amount": {
           "type": "number",
@@ -193,12 +188,11 @@
   "data_structures": {
     "sbt_metadata": {
       "name": "string",
-      "description": "string", 
-      "image": "string (IPFS hash)",
+      "description": "string",
       "attributes": [
         {
           "trait_type": "Event",
-          "value": "Nomad Bitz 2025 Bangkok"
+          "value": "Monad Bitz 2025 Bangkok"
         },
         {
           "trait_type": "Type", 
@@ -210,7 +204,7 @@
         },
         {
           "trait_type": "Issuer",
-          "value": "Nomad Bitz Organization"
+          "value": "Monad Bitz Organization"
         },
         {
           "trait_type": "Issue Date",
@@ -314,11 +308,10 @@
   "mock_data": {
     "sample_metadata": [
       {
-        "name": "Nomad Bitz 2025 Bangkok",
-        "description": "Soulbound Token for Developer who intercept with Chao and Nomad",
-        "image": "ipfs://QmSampleHash123",
+        "name": "Monad Bitz 2025 Bangkok",
+        "description": "Soulbound Token for Developer who intercept with Chao and Monad",
         "attributes": [
-          {"trait_type": "Event", "value": "Nomad Bitz 2025"},
+          {"trait_type": "Event", "value": "Monad Bitz 2025"},
           {"trait_type": "Location", "value": "Bangkok"},
           {"trait_type": "Type", "value": "Certificate"}
         ]
@@ -327,8 +320,8 @@
     "sample_issuers": [
       {
         "address": "0x1234567890123456789012345678901234567890",
-        "name": "Nomad Bitz Organization",
-        "organization": "Nomad Bitz",
+        "name": "Monad Bitz Organization",
+        "organization": "Monad Bitz",
         "authorized": true
       }
     ]

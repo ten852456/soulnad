@@ -3,7 +3,17 @@
     "allow": [
       "Bash(yarn install)",
       "Bash(npx hardhat compile:*)",
-      "Bash(npx hardhat test:*)"
+      "Bash(npx hardhat test:*)",
+      "mcp__serena__list_dir",
+      "Read(//d/**)",
+      "Bash(yarn compile)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "mcp__serena__find_symbol",
+      "mcp__serena__search_for_pattern",
+      "Bash(yarn typecheck)",
+      "Bash(yarn lint)",
+      "Bash(yarn lint:*)"
     ],
     "deny": [],
     "ask": []

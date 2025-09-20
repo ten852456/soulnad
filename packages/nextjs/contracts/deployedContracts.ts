@@ -410,8 +410,1146 @@ const deployedContracts = {
         paused: "@openzeppelin/contracts/utils/Pausable.sol",
       },
     },
+    SBTSession: {
+      address: "0x1672551E251E0Cc40521Cdab4eC44095C6b25445",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_issuerRegistry",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_sbtTemplate",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EnforcedPause",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ExpectedPause",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "Paused",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "claimer",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "remainingMints",
+              type: "uint256",
+            },
+          ],
+          name: "SessionClaimed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "maxMints",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "title",
+              type: "string",
+            },
+          ],
+          name: "SessionCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+          ],
+          name: "SessionEnded",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newCurrentMints",
+              type: "uint256",
+            },
+          ],
+          name: "SessionMintIncreased",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "Unpaused",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxMints",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "durationInSeconds",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "title",
+              type: "string",
+            },
+          ],
+          name: "createSession",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+          ],
+          name: "endSession",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+          ],
+          name: "getIssuerSessions",
+          outputs: [
+            {
+              internalType: "bytes32[]",
+              name: "",
+              type: "bytes32[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+          ],
+          name: "getSession",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "bytes32",
+                  name: "sessionId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "templateId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxMints",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "currentMints",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "endTimestamp",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "issuer",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "active",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "title",
+                  type: "string",
+                },
+              ],
+              internalType: "struct SBTSession.Session",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+          ],
+          name: "getSessionStats",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "currentMints",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxMints",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "remainingMints",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "timeRemaining",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "hasClaimed",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "claimer",
+              type: "address",
+            },
+          ],
+          name: "hasClaimedFromSession",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+          ],
+          name: "incrementMintCount",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+          ],
+          name: "isSessionClaimable",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "issuerRegistry",
+          outputs: [
+            {
+              internalType: "contract IssuerRegistry",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "issuerSessions",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "pause",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "paused",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "sbtTemplate",
+          outputs: [
+            {
+              internalType: "contract SBTTemplate",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "sbtTokenContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "sessions",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxMints",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "currentMints",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "endTimestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "active",
+              type: "bool",
+            },
+            {
+              internalType: "string",
+              name: "title",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_sbtTokenContract",
+              type: "address",
+            },
+          ],
+          name: "setSBTTokenContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "unpause",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        paused: "@openzeppelin/contracts/utils/Pausable.sol",
+      },
+    },
+    SBTTemplate: {
+      address: "0x223A7cBfc7fAA7261E97EEEfFD7c8356A92B40be",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_issuerRegistry",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EnforcedPause",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ExpectedPause",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "Paused",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+          ],
+          name: "TemplateCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "TemplateDeactivated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "TemplateReactivated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+          ],
+          name: "TemplateUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "Unpaused",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+          ],
+          name: "createTemplate",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "deactivateTemplate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+          ],
+          name: "getIssuerTemplates",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "getTemplate",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "templateId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "description",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "issuer",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "createdAt",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bool",
+                  name: "active",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct SBTTemplate.Template",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getTotalTemplates",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "isTemplateActive",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "issuerRegistry",
+          outputs: [
+            {
+              internalType: "contract IssuerRegistry",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "issuerTemplates",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "pause",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "paused",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "reactivateTemplate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "templates",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "createdAt",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "active",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "unpause",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+          ],
+          name: "updateTemplate",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        paused: "@openzeppelin/contracts/utils/Pausable.sol",
+      },
+    },
     SBTToken: {
-      address: "0xC506C266b4690c42593351519bf7dB39Ce936e8d",
+      address: "0x045Bef95F7FC689aDfE2B2DA1488fDC20B65cd01",
       abi: [
         {
           inputs: [
@@ -423,6 +1561,16 @@ const deployedContracts = {
             {
               internalType: "address",
               name: "_issuerRegistry",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_sbtTemplate",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_sbtSession",
               type: "address",
             },
           ],
@@ -645,25 +1793,6 @@ const deployedContracts = {
           inputs: [
             {
               indexed: false,
-              internalType: "uint256",
-              name: "_fromTokenId",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "_toTokenId",
-              type: "uint256",
-            },
-          ],
-          name: "BatchMetadataUpdate",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
               internalType: "address[]",
               name: "recipients",
               type: "address[]",
@@ -675,10 +1804,16 @@ const deployedContracts = {
               type: "uint256[]",
             },
             {
-              indexed: false,
-              internalType: "string[]",
-              name: "tokenURIs",
-              type: "string[]",
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
             },
             {
               indexed: true,
@@ -694,19 +1829,6 @@ const deployedContracts = {
             },
           ],
           name: "BatchSBTMinted",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "_tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "MetadataUpdate",
           type: "event",
         },
         {
@@ -757,16 +1879,34 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              indexed: false,
-              internalType: "string",
-              name: "tokenURI",
-              type: "string",
+              indexed: true,
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
             },
             {
-              indexed: true,
+              indexed: false,
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
               internalType: "address",
               name: "issuer",
               type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "description",
+              type: "string",
             },
             {
               indexed: false,
@@ -886,12 +2026,25 @@ const deployedContracts = {
               type: "address[]",
             },
             {
-              internalType: "string[]",
-              name: "uris",
-              type: "string[]",
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
             },
           ],
-          name: "batchMintSBT",
+          name: "batchMintFromSession",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+          ],
+          name: "claimFromSession",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -936,12 +2089,17 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "getSBTInfo",
+          name: "getSBTBasicInfo",
           outputs: [
             {
-              internalType: "address",
-              name: "owner",
-              type: "address",
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
             },
             {
               internalType: "address",
@@ -950,7 +2108,7 @@ const deployedContracts = {
             },
             {
               internalType: "uint256",
-              name: "mintTime",
+              name: "mintedAt",
               type: "uint256",
             },
             {
@@ -958,10 +2116,61 @@ const deployedContracts = {
               name: "revoked",
               type: "bool",
             },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
             {
-              internalType: "string",
-              name: "uri",
-              type: "string",
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getSBTInfo",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "name",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "description",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "issuer",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "mintedAt",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "templateId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "sessionId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "bool",
+                  name: "revoked",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct SBTToken.SBTData",
+              name: "",
+              type: "tuple",
             },
           ],
           stateMutability: "view",
@@ -994,12 +2203,36 @@ const deployedContracts = {
               type: "address",
             },
             {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "hasTokenFromSession",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "",
               type: "address",
             },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
           ],
-          name: "hasTokenFromIssuer",
+          name: "hasTokenFromTemplate",
           outputs: [
             {
               internalType: "bool",
@@ -1055,12 +2288,30 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "string",
-              name: "uri",
-              type: "string",
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
             },
           ],
-          name: "mintSBT",
+          name: "mintFromSession",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+          ],
+          name: "mintFromTemplate",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1204,6 +2455,81 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "sbtData",
+          outputs: [
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "issuer",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "mintedAt",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "templateId",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes32",
+              name: "sessionId",
+              type: "bytes32",
+            },
+            {
+              internalType: "bool",
+              name: "revoked",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "sbtSession",
+          outputs: [
+            {
+              internalType: "contract SBTSession",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "sbtTemplate",
+          outputs: [
+            {
+              internalType: "contract SBTTemplate",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "",
               type: "address",
@@ -1273,44 +2599,6 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "tokenIssuer",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "tokenMintTime",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "address",
               name: "owner",
               type: "address",
@@ -1327,25 +2615,6 @@ const deployedContracts = {
               internalType: "uint256",
               name: "",
               type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          name: "tokenRevoked",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
             },
           ],
           stateMutability: "view",

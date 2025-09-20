@@ -2,44 +2,57 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./IssuerRegistry.sol";
+import "./SBTTemplate.sol";
+import "./SBTSession.sol";
 
 /**
  * @title SBTToken
- * @dev Soulbound Token (Non-transferable ERC721) implementation
+ * @dev Soulbound Token (Non-transferable ERC721) implementation with template and session-based minting
  * @author SBT System POC
  */
-contract SBTToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, Pausable, ReentrancyGuard {
+contract SBTToken is ERC721, ERC721Enumerable, Ownable, Pausable, ReentrancyGuard {
 
-    // Reference to the IssuerRegistry contract
+    struct SBTData {
+        string name;
+        string description;
+        address issuer;
+        uint256 mintedAt;
+        uint256 templateId;
+        bytes32 sessionId;
+        bool revoked;
+    }
+
+    // Contract references
     IssuerRegistry public immutable issuerRegistry;
+    SBTTemplate public immutable sbtTemplate;
+    SBTSession public immutable sbtSession;
 
     // Counter for token IDs
     uint256 private _nextTokenId = 1;
 
-    // Mapping from token ID to issuer address
-    mapping(uint256 => address) public tokenIssuer;
+    // Mapping from token ID to SBT data
+    mapping(uint256 => SBTData) public sbtData;
 
-    // Mapping from token ID to mint timestamp
-    mapping(uint256 => uint256) public tokenMintTime;
+    // Mapping to track if user already has SBT from specific template (prevents duplicates)
+    mapping(address => mapping(uint256 => bool)) public hasTokenFromTemplate;
 
-    // Mapping from token ID to revoked status
-    mapping(uint256 => bool) public tokenRevoked;
-
-    // Mapping to track if user already has SBT from specific issuer (prevents duplicates)
-    mapping(address => mapping(address => bool)) public hasTokenFromIssuer;
+    // Mapping to track if user already has SBT from specific session (prevents duplicates)
+    mapping(address => mapping(bytes32 => bool)) public hasTokenFromSession;
 
     // Events
     event SBTMinted(
         address indexed recipient,
         uint256 indexed tokenId,
-        string tokenURI,
-        address indexed issuer,
+        uint256 indexed templateId,
+        bytes32 sessionId,
+        address issuer,
+        string name,
+        string description,
         uint256 timestamp
     );
 
@@ -52,7 +65,8 @@ contract SBTToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, Pausab
     event BatchSBTMinted(
         address[] recipients,
         uint256[] tokenIds,
-        string[] tokenURIs,
+        uint256 indexed templateId,
+        bytes32 indexed sessionId,
         address indexed issuer,
         uint256 timestamp
     );
@@ -69,80 +83,226 @@ contract SBTToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, Pausab
     // Modifier to check if token exists and not revoked
     modifier validToken(uint256 tokenId) {
         require(_ownerOf(tokenId) != address(0), "SBTToken: Token does not exist");
-        require(!tokenRevoked[tokenId], "SBTToken: Token has been revoked");
+        require(!sbtData[tokenId].revoked, "SBTToken: Token has been revoked");
         _;
     }
 
     constructor(
         address _owner,
-        address _issuerRegistry
+        address _issuerRegistry,
+        address _sbtTemplate,
+        address _sbtSession
     ) ERC721("Soulbound Token", "SBT") Ownable(_owner) {
         require(_issuerRegistry != address(0), "SBTToken: Invalid registry address");
+        require(_sbtTemplate != address(0), "SBTToken: Invalid template address");
+        require(_sbtSession != address(0), "SBTToken: Invalid session address");
+
         issuerRegistry = IssuerRegistry(_issuerRegistry);
+        sbtTemplate = SBTTemplate(_sbtTemplate);
+        sbtSession = SBTSession(_sbtSession);
     }
 
     /**
-     * @dev Mint a new SBT to a recipient
+     * @dev Mint SBT from a template (direct minting by issuer)
      * @param to Address of the recipient
-     * @param uri IPFS URI for token metadata
+     * @param templateId Template ID to mint from
      */
-    function mintSBT(
+    function mintFromTemplate(
         address to,
-        string memory uri
+        uint256 templateId
     ) external onlyAuthorizedIssuer whenNotPaused nonReentrant {
         require(to != address(0), "SBTToken: Cannot mint to zero address");
-        require(bytes(uri).length > 0, "SBTToken: Token URI cannot be empty");
-        require(!hasTokenFromIssuer[to][msg.sender], "SBTToken: User already has token from this issuer");
+        require(sbtTemplate.isTemplateActive(templateId), "SBTToken: Template is not active");
+        require(!hasTokenFromTemplate[to][templateId], "SBTToken: User already has token from this template");
+
+        SBTTemplate.Template memory template = sbtTemplate.getTemplate(templateId);
+        require(template.issuer == msg.sender, "SBTToken: Not template owner");
 
         uint256 tokenId = _nextTokenId++;
 
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
 
-        tokenIssuer[tokenId] = msg.sender;
-        tokenMintTime[tokenId] = block.timestamp;
-        hasTokenFromIssuer[to][msg.sender] = true;
+        sbtData[tokenId] = SBTData({
+            name: template.name,
+            description: template.description,
+            issuer: msg.sender,
+            mintedAt: block.timestamp,
+            templateId: templateId,
+            sessionId: bytes32(0),
+            revoked: false
+        });
 
-        emit SBTMinted(to, tokenId, uri, msg.sender, block.timestamp);
+        hasTokenFromTemplate[to][templateId] = true;
+
+        emit SBTMinted(
+            to,
+            tokenId,
+            templateId,
+            bytes32(0),
+            msg.sender,
+            template.name,
+            template.description,
+            block.timestamp
+        );
     }
 
     /**
-     * @dev Batch mint SBTs to multiple recipients
-     * @param recipients Array of recipient addresses
-     * @param uris Array of IPFS URIs for token metadata
+     * @dev Mint SBT from a session (for QR code claims)
+     * @param to Address of the recipient
+     * @param sessionId Session ID to mint from
      */
-    function batchMintSBT(
+    function mintFromSession(
+        address to,
+        bytes32 sessionId
+    ) external onlyAuthorizedIssuer whenNotPaused nonReentrant {
+        require(to != address(0), "SBTToken: Cannot mint to zero address");
+        require(sbtSession.isSessionClaimable(sessionId), "SBTToken: Session is not claimable");
+        require(!hasTokenFromSession[to][sessionId], "SBTToken: User already has token from this session");
+
+        SBTSession.Session memory session = sbtSession.getSession(sessionId);
+        require(session.issuer == msg.sender, "SBTToken: Not session owner");
+
+        SBTTemplate.Template memory template = sbtTemplate.getTemplate(session.templateId);
+
+        uint256 tokenId = _nextTokenId++;
+
+        _safeMint(to, tokenId);
+
+        sbtData[tokenId] = SBTData({
+            name: template.name,
+            description: template.description,
+            issuer: msg.sender,
+            mintedAt: block.timestamp,
+            templateId: session.templateId,
+            sessionId: sessionId,
+            revoked: false
+        });
+
+        hasTokenFromSession[to][sessionId] = true;
+        hasTokenFromTemplate[to][session.templateId] = true;
+
+        // Increment session mint count
+        sbtSession.incrementMintCount(sessionId);
+
+        emit SBTMinted(
+            to,
+            tokenId,
+            session.templateId,
+            sessionId,
+            msg.sender,
+            template.name,
+            template.description,
+            block.timestamp
+        );
+    }
+
+    /**
+     * @dev Batch mint SBTs from a session to multiple recipients
+     * @param recipients Array of recipient addresses
+     * @param sessionId Session ID to mint from
+     */
+    function batchMintFromSession(
         address[] memory recipients,
-        string[] memory uris
+        bytes32 sessionId
     ) external onlyAuthorizedIssuer whenNotPaused nonReentrant {
         require(recipients.length > 0, "SBTToken: Empty recipients array");
-        require(recipients.length == uris.length, "SBTToken: Arrays length mismatch");
         require(recipients.length <= 100, "SBTToken: Batch size too large"); // Gas limit protection
+        require(sbtSession.isSessionClaimable(sessionId), "SBTToken: Session is not claimable");
 
+        SBTSession.Session memory session = sbtSession.getSession(sessionId);
+        require(session.issuer == msg.sender, "SBTToken: Not session owner");
+
+        // Check if there are enough mints available
+        (uint256 currentMints, uint256 maxMints,,) = sbtSession.getSessionStats(sessionId);
+        require(currentMints + recipients.length <= maxMints, "SBTToken: Exceeds session mint limit");
+
+        SBTTemplate.Template memory template = sbtTemplate.getTemplate(session.templateId);
         uint256[] memory tokenIds = new uint256[](recipients.length);
 
         for (uint256 i = 0; i < recipients.length; i++) {
             address to = recipients[i];
-            string memory uri = uris[i];
-
             require(to != address(0), "SBTToken: Cannot mint to zero address");
-            require(bytes(uri).length > 0, "SBTToken: Token URI cannot be empty");
-            require(!hasTokenFromIssuer[to][msg.sender], "SBTToken: User already has token from this issuer");
+            require(!hasTokenFromSession[to][sessionId], "SBTToken: User already has token from this session");
 
             uint256 tokenId = _nextTokenId++;
             tokenIds[i] = tokenId;
 
             _safeMint(to, tokenId);
-            _setTokenURI(tokenId, uri);
 
-            tokenIssuer[tokenId] = msg.sender;
-            tokenMintTime[tokenId] = block.timestamp;
-            hasTokenFromIssuer[to][msg.sender] = true;
+            sbtData[tokenId] = SBTData({
+                name: template.name,
+                description: template.description,
+                issuer: msg.sender,
+                mintedAt: block.timestamp,
+                templateId: session.templateId,
+                sessionId: sessionId,
+                revoked: false
+            });
 
-            emit SBTMinted(to, tokenId, uri, msg.sender, block.timestamp);
+            hasTokenFromSession[to][sessionId] = true;
+            hasTokenFromTemplate[to][session.templateId] = true;
+
+            emit SBTMinted(
+                to,
+                tokenId,
+                session.templateId,
+                sessionId,
+                msg.sender,
+                template.name,
+                template.description,
+                block.timestamp
+            );
         }
 
-        emit BatchSBTMinted(recipients, tokenIds, uris, msg.sender, block.timestamp);
+        // Update session mint count
+        for (uint256 i = 0; i < recipients.length; i++) {
+            sbtSession.incrementMintCount(sessionId);
+        }
+
+        emit BatchSBTMinted(recipients, tokenIds, session.templateId, sessionId, msg.sender, block.timestamp);
+    }
+
+    /**
+     * @dev Self-service claim SBT from a session (users can mint directly)
+     * @param sessionId Session ID to claim from
+     */
+    function claimFromSession(bytes32 sessionId) external whenNotPaused nonReentrant {
+        require(sbtSession.isSessionClaimable(sessionId), "SBTToken: Session is not claimable");
+        require(!hasTokenFromSession[msg.sender][sessionId], "SBTToken: User already has token from this session");
+
+        SBTSession.Session memory session = sbtSession.getSession(sessionId);
+        SBTTemplate.Template memory template = sbtTemplate.getTemplate(session.templateId);
+
+        uint256 tokenId = _nextTokenId++;
+
+        _safeMint(msg.sender, tokenId);
+
+        sbtData[tokenId] = SBTData({
+            name: template.name,
+            description: template.description,
+            issuer: session.issuer, // Keep original issuer from session
+            mintedAt: block.timestamp,
+            templateId: session.templateId,
+            sessionId: sessionId,
+            revoked: false
+        });
+
+        hasTokenFromSession[msg.sender][sessionId] = true;
+        hasTokenFromTemplate[msg.sender][session.templateId] = true;
+
+        // Increment session mint count
+        sbtSession.incrementMintCount(sessionId);
+
+        emit SBTMinted(
+            msg.sender,
+            tokenId,
+            session.templateId,
+            sessionId,
+            session.issuer, // Emit original issuer
+            template.name,
+            template.description,
+            block.timestamp
+        );
     }
 
     /**
@@ -151,15 +311,20 @@ contract SBTToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, Pausab
      */
     function revokeSBT(uint256 tokenId) external validToken(tokenId) whenNotPaused {
         require(
-            msg.sender == tokenIssuer[tokenId] || msg.sender == owner(),
+            msg.sender == sbtData[tokenId].issuer || msg.sender == owner(),
             "SBTToken: Not authorized to revoke"
         );
 
         address tokenOwner = ownerOf(tokenId);
-        address issuer = tokenIssuer[tokenId];
+        uint256 templateId = sbtData[tokenId].templateId;
+        bytes32 sessionId = sbtData[tokenId].sessionId;
 
-        tokenRevoked[tokenId] = true;
-        hasTokenFromIssuer[tokenOwner][issuer] = false;
+        sbtData[tokenId].revoked = true;
+        hasTokenFromTemplate[tokenOwner][templateId] = false;
+
+        if (sessionId != bytes32(0)) {
+            hasTokenFromSession[tokenOwner][sessionId] = false;
+        }
 
         emit SBTRevoked(tokenId, msg.sender, block.timestamp);
     }
@@ -183,28 +348,32 @@ contract SBTToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, Pausab
     /**
      * @dev Get SBT information
      * @param tokenId Token ID to query
-     * @return owner Owner address
-     * @return issuer Issuer address
-     * @return mintTime Mint timestamp
-     * @return revoked Revoked status
-     * @return uri Token URI
+     * @return SBTData struct with all token information
      */
-    function getSBTInfo(uint256 tokenId) external view returns (
-        address owner,
+    function getSBTInfo(uint256 tokenId) external view returns (SBTData memory) {
+        require(_ownerOf(tokenId) != address(0), "SBTToken: Token does not exist");
+        return sbtData[tokenId];
+    }
+
+    /**
+     * @dev Get SBT basic info
+     * @param tokenId Token ID to query
+     * @return name Token name
+     * @return description Token description
+     * @return issuer Issuer address
+     * @return mintedAt Mint timestamp
+     * @return revoked Revocation status
+     */
+    function getSBTBasicInfo(uint256 tokenId) external view returns (
+        string memory name,
+        string memory description,
         address issuer,
-        uint256 mintTime,
-        bool revoked,
-        string memory uri
+        uint256 mintedAt,
+        bool revoked
     ) {
         require(_ownerOf(tokenId) != address(0), "SBTToken: Token does not exist");
-
-        return (
-            ownerOf(tokenId),
-            tokenIssuer[tokenId],
-            tokenMintTime[tokenId],
-            tokenRevoked[tokenId],
-            tokenURI(tokenId)
-        );
+        SBTData memory data = sbtData[tokenId];
+        return (data.name, data.description, data.issuer, data.mintedAt, data.revoked);
     }
 
     /**
@@ -283,19 +452,10 @@ contract SBTToken is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, Pausab
         super._increaseBalance(account, value);
     }
 
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
-        return super.tokenURI(tokenId);
-    }
-
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721Enumerable, ERC721URIStorage)
+        override(ERC721, ERC721Enumerable)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
