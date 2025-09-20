@@ -1,0 +1,383 @@
+{
+  "project": {
+    "name": "SBT System POC",
+    "description": "Soulbound Token System Proof of Concept for Nomad Bitz 2025",
+    "duration": "3-4 hours",
+    "tech_stack": ["Scaffold-ETH2", "Next.js", "React", "TypeScript", "Solidity", "Hardhat", "RainbowKit", "Wagmi"],
+    "deployment": "Monad Testnet/Mainnet"
+  },
+  "architecture": {
+    "type": "Full Stack DApp",
+    "frontend": "Next.js with scaffold-eth2",
+    "backend": "Smart Contracts on Monad",
+    "wallet": "RainbowKit integration",
+    "storage": "On-chain + IPFS for metadata",
+    "external_libs": ["qrcode.js", "@openzeppelin/contracts"]
+  },
+  "smart_contracts": {
+    "SBTToken": {
+      "file": "contracts/SBTToken.sol",
+      "standard": "ERC721 with non-transferable modification",
+      "functions": [
+        "mintSBT(address to, string memory tokenURI)",
+        "batchMintSBT(address[] memory recipients, string[] memory tokenURIs)",
+        "revokeSBT(uint256 tokenId)",
+        "tokenURI(uint256 tokenId)",
+        "balanceOf(address owner)",
+        "ownerOf(uint256 tokenId)"
+      ],
+      "modifiers": [
+        "onlyIssuer",
+        "whenNotPaused"
+      ],
+      "events": [
+        "SBTMinted(address indexed recipient, uint256 indexed tokenId, string tokenURI)",
+        "SBTRevoked(uint256 indexed tokenId)",
+        "IssuerAdded(address indexed issuer)",
+        "IssuerRemoved(address indexed issuer)"
+      ]
+    },
+    "IssuerRegistry": {
+      "file": "contracts/IssuerRegistry.sol",
+      "purpose": "Manage authorized issuers",
+      "functions": [
+        "addIssuer(address issuer, string memory name)",
+        "removeIssuer(address issuer)",
+        "isAuthorizedIssuer(address issuer)",
+        "getIssuerInfo(address issuer)"
+      ]
+    }
+  },
+  "pages": {
+    "home": {
+      "url": "/",
+      "purpose": "Entry point with wallet connection and role selection",
+      "components": [
+        "Connect Wallet button (RainbowKit)",
+        "Header with system title",
+        "Two main navigation buttons (Client/Issuer)",
+        "Network status (Monad)",
+        "Brief system explanation"
+      ]
+    },
+    "client_dashboard": {
+      "url": "/client",
+      "purpose": "Display user's SBT collection from blockchain",
+      "features": [
+        "Connect wallet requirement check",
+        "Read SBTs from smart contract using user's address",
+        "Display SBT cards with metadata from IPFS",
+        "Filter/Search functionality",
+        "View details modal with blockchain verification"
+      ],
+      "blockchain_interactions": [
+        "balanceOf(userAddress)",
+        "tokenOfOwnerByIndex(userAddress, index)",
+        "tokenURI(tokenId) -> IPFS metadata"
+      ]
+    },
+    "issuer_dashboard": {
+      "url": "/issuer",
+      "purpose": "Issuer SBT management interface",
+      "features": [
+        "Check if connected wallet is authorized issuer",
+        "Display issued SBT templates and minted tokens",
+        "Create new SBT button",
+        "Revoke SBT functionality",
+        "Statistics from blockchain events"
+      ],
+      "blockchain_interactions": [
+        "isAuthorizedIssuer(msg.sender)",
+        "Read SBTMinted events filtered by issuer",
+        "revokeSBT(tokenId)"
+      ]
+    },
+    "create_sbt": {
+      "url": "/create",
+      "purpose": "Create SBT metadata and prepare for minting",
+      "form_fields": {
+        "name": {
+          "type": "text",
+          "default": "Nomad Bitz 2025 Bangkok",
+          "required": true
+        },
+        "description": {
+          "type": "textarea",
+          "default": "Soulbound Token for Developer who intercept with Chao and Nomad",
+          "required": true
+        },
+        "image": {
+          "type": "file",
+          "accept": "image/*",
+          "description": "Upload to IPFS"
+        },
+        "amount": {
+          "type": "number",
+          "default": 100,
+          "required": true,
+          "description": "Attribute value for this SBT"
+        },
+        "sbt_type": {
+          "type": "select",
+          "options": ["certificate", "badge", "achievement", "participation"],
+          "default": "certificate"
+        }
+      },
+      "blockchain_preparation": [
+        "Upload metadata to IPFS",
+        "Generate tokenURI",
+        "Prepare for mint transaction"
+      ]
+    },
+    "mint": {
+      "url": "/mint",
+      "purpose": "Choose distribution method after metadata preparation",
+      "components": [
+        "Metadata summary",
+        "IPFS hash display",
+        "Distribution method selection",
+        "Gas estimation display"
+      ],
+      "actions": {
+        "show_qr_code": "Generate claimable QR code with metadata",
+        "batch_deposit": "Upload CSV for batch minting",
+        "direct_mint": "Mint directly to specific address"
+      }
+    },
+    "qr_display": {
+      "url": "/qr/:metadataHash",
+      "purpose": "Display QR code for claiming SBT",
+      "components": [
+        "Generated QR code containing claim URL",
+        "Claim URL display",
+        "Instructions for participants",
+        "Real-time claim statistics from blockchain"
+      ]
+    },
+    "claim_page": {
+      "url": "/claim/:metadataHash",
+      "purpose": "Participants claim SBT via QR scan",
+      "workflow": [
+        "Verify connected wallet",
+        "Check if already claimed by this address",
+        "Display SBT preview from IPFS metadata",
+        "Execute mintSBT transaction",
+        "Show success with transaction hash"
+      ],
+      "blockchain_interactions": [
+        "Check balanceOf(userAddress) for duplicates",
+        "Call mintSBT(userAddress, tokenURI)",
+        "Listen for SBTMinted event"
+      ]
+    },
+    "batch_deposit": {
+      "url": "/batch/:metadataHash",
+      "purpose": "Bulk SBT minting via CSV",
+      "features": [
+        "CSV file upload with wallet addresses",
+        "Data validation and preview",
+        "Gas estimation for batch operation",
+        "Execute batchMintSBT transaction"
+      ],
+      "csv_format": {
+        "columns": ["wallet_address", "participant_name"],
+        "example": "0x1234567890123456789012345678901234567890,John Doe"
+      },
+      "blockchain_interactions": [
+        "Validate all wallet addresses",
+        "Call batchMintSBT(addresses[], tokenURIs[])",
+        "Monitor transaction progress"
+      ]
+    }
+  },
+  "data_structures": {
+    "sbt_metadata": {
+      "name": "string",
+      "description": "string", 
+      "image": "string (IPFS hash)",
+      "attributes": [
+        {
+          "trait_type": "Event",
+          "value": "Nomad Bitz 2025 Bangkok"
+        },
+        {
+          "trait_type": "Type", 
+          "value": "Certificate"
+        },
+        {
+          "trait_type": "Amount",
+          "value": "100"
+        },
+        {
+          "trait_type": "Issuer",
+          "value": "Nomad Bitz Organization"
+        },
+        {
+          "trait_type": "Issue Date",
+          "value": "2025-09-20"
+        }
+      ]
+    },
+    "blockchain_sbt": {
+      "tokenId": "uint256",
+      "owner": "address",
+      "tokenURI": "string (IPFS hash)",
+      "issuer": "address",
+      "mintedAt": "uint256 (timestamp)",
+      "revoked": "boolean"
+    },
+    "issuer_info": {
+      "address": "address",
+      "name": "string",
+      "organization": "string", 
+      "authorized": "boolean",
+      "addedAt": "uint256 (timestamp)"
+    }
+  },
+  "core_functions": {
+    "wallet_integration": [
+      "connectWallet()",
+      "disconnectWallet()",
+      "switchToMonadNetwork()",
+      "checkNetworkId()"
+    ],
+    "smart_contract_interactions": [
+      "mintSBT(address, tokenURI)",
+      "batchMintSBT(addresses[], tokenURIs[])",
+      "revokeSBT(tokenId)",
+      "getUserSBTs(address)",
+      "isAuthorizedIssuer(address)",
+      "addIssuer(address, name)"
+    ],
+    "ipfs_operations": [
+      "uploadMetadataToIPFS(metadata)",
+      "uploadImageToIPFS(file)",
+      "fetchMetadataFromIPFS(hash)",
+      "generateTokenURI(ipfsHash)"
+    ],
+    "blockchain_utilities": [
+      "estimateGas(functionCall)",
+      "waitForTransaction(txHash)",
+      "parseTransactionLogs(receipt)",
+      "formatAddress(address)"
+    ]
+  },
+  "ui_design": {
+    "color_scheme": {
+      "primary": "Blue gradient (#667eea to #764ba2)",
+      "secondary": "White cards with subtle shadows",
+      "success": "#10B981",
+      "error": "#EF4444",
+      "warning": "#F59E0B",
+      "text": "#374151"
+    },
+    "responsive": {
+      "breakpoints": {
+        "mobile": "320px - 768px",
+        "tablet": "768px - 1024px",
+        "desktop": "1024px+"
+      },
+      "layout": "Mobile-first approach with card-based design"
+    },
+    "components": {
+      "dashboard_cards": "Hover effects, shadow, rounded corners",
+      "forms": "Clean inputs with validation feedback",
+      "buttons": "Primary/secondary styles with loading states",
+      "modals": "Centered with backdrop blur",
+      "qr_code": "Large display with surrounding info"
+    }
+  },
+  "deployment": {
+    "network": {
+      "name": "Monad",
+      "type": "EVM Compatible",
+      "rpc_url": "https://rpc.monad.xyz",
+      "chain_id": "TBD (Monad testnet/mainnet)",
+      "currency": "MON"
+    },
+    "contracts_deployment": {
+      "hardhat_config": "hardhat.config.ts configured for Monad",
+      "deployment_script": "deploy/00_deploy_sbt_system.ts",
+      "verification": "Verify contracts on Monad explorer"
+    },
+    "frontend_deployment": {
+      "platform": "Vercel/Netlify",
+      "env_variables": [
+        "NEXT_PUBLIC_MONAD_RPC_URL",
+        "NEXT_PUBLIC_SBT_CONTRACT_ADDRESS", 
+        "NEXT_PUBLIC_ISSUER_REGISTRY_ADDRESS",
+        "NEXT_PUBLIC_IPFS_GATEWAY",
+        "PINATA_API_KEY (for IPFS uploads)"
+      ]
+    }
+  },
+  "mock_data": {
+    "sample_metadata": [
+      {
+        "name": "Nomad Bitz 2025 Bangkok",
+        "description": "Soulbound Token for Developer who intercept with Chao and Nomad",
+        "image": "ipfs://QmSampleHash123",
+        "attributes": [
+          {"trait_type": "Event", "value": "Nomad Bitz 2025"},
+          {"trait_type": "Location", "value": "Bangkok"},
+          {"trait_type": "Type", "value": "Certificate"}
+        ]
+      }
+    ],
+    "sample_issuers": [
+      {
+        "address": "0x1234567890123456789012345678901234567890",
+        "name": "Nomad Bitz Organization",
+        "organization": "Nomad Bitz",
+        "authorized": true
+      }
+    ]
+  },
+  "development_phases": {
+    "phase_1": {
+      "duration": "1 hour",
+      "tasks": [
+        "Setup scaffold-eth2 project",
+        "Configure Monad network in hardhat.config.ts",
+        "Create basic SBTToken.sol contract",
+        "Setup RainbowKit for wallet connection"
+      ]
+    },
+    "phase_2": {
+      "duration": "1 hour", 
+      "tasks": [
+        "Implement IssuerRegistry.sol contract",
+        "Deploy contracts to Monad testnet",
+        "Create client dashboard with wallet integration",
+        "Implement getUserSBTs() function"
+      ]
+    },
+    "phase_3": {
+      "duration": "1 hour",
+      "tasks": [
+        "Build create SBT form with IPFS upload",
+        "Implement mintSBT functionality",
+        "Add issuer authorization checks",
+        "Create mint success page"
+      ]
+    },
+    "phase_4": {
+      "duration": "1 hour",
+      "tasks": [
+        "Implement QR code generation and claim page",
+        "Add batch minting functionality",
+        "Polish UI/UX with proper loading states",
+        "Test full workflow on Monad testnet"
+      ]
+    }
+  },
+  "success_criteria": [
+    "Wallet connects successfully to Monad network",
+    "Smart contracts deploy and verify on Monad",
+    "Users can mint SBT with proper metadata on IPFS",
+    "QR code claim workflow works end-to-end",
+    "Batch minting processes CSV correctly",
+    "Client dashboard displays SBTs from blockchain",
+    "All transactions complete on Monad with proper gas estimation"
+  ]
+}

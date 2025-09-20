@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn install)",
+      "Bash(npx hardhat compile:*)",
+      "Bash(npx hardhat test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
